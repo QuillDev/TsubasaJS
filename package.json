@@ -1,0 +1,19 @@
+{
+  "name": "tsubasajs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "glob": "^7.1.6",
+    "got": "^11.7.0"
+  }
+}
