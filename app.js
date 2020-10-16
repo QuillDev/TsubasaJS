@@ -1,5 +1,5 @@
 //Load Tsubasa wrapper for discord.js Client
-const {Tsubasa} = require('./Tsubasa');
+const {Tsubasa} = require('./tsubasa/Tsubasa');
 
 //include the custom logger
 const logger = require('./utils/logger');

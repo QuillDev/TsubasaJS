@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const {CommandHandler} = require('./utils/CommandHandler')
-const logger = require("./utils/logger");
+const {CommandHandler} = require('./CommandHandler')
+const logger = require("../utils/logger");
 
 /**
  * Constructor for Tsubasa wrapper on discord.js client
