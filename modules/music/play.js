@@ -47,17 +47,20 @@ class Play extends TsubasaCommand {
         if(this._checkURL(query)){
             const result = await node.rest.resolve(query);
 
+            console.log(result);
+
             //if the result was bad or invalid
-            if(!result){
+            if(result == null){
                 return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
             }
 
-            console.log(result);
             //get data from the result
             const {type, tracks, playlistName} = result;
 
+
+
             //get the first track from the tracks list
-            const track = tracks.shift();
+            let track = tracks.shift();
 
             //see if it's a playlist
             const isPlaylist = type === 'PLAYLIST';
@@ -88,8 +91,9 @@ class Play extends TsubasaCommand {
             return;
         }
 
+        //TODO Port my custom implementation from C# this one is kinda trash
         //search youtube with the given query
-        const searchData = await node.rest.resolve(query, 'youtube');
+        let searchData = await node.rest.resolve(query, 'youtube');
 
         //if the tracks came back empty
         if(!searchData.tracks.length){
@@ -97,7 +101,7 @@ class Play extends TsubasaCommand {
         }
 
         //get the first track
-        const track = searchData.tracks.shift();
+        let track = searchData.tracks.shift();
 
         const res = await this.client.queue.handle(node, track, msg);
 

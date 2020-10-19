@@ -25,7 +25,7 @@ class TsubasaLogger {
     * @param {Error} error the error to log
     */
     error(error){
-        console.error(`${chalk.bold("[ERROR]")} ${chalk.red(chalk.bold(error))}`);
+        console.error(`${chalk.bold("[ERROR]")} ${chalk.red(chalk.bold(error) + err.stack)}`);
     }
 
     /**
