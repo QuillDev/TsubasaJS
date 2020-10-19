@@ -27,9 +27,8 @@ class Play extends TsubasaCommand {
 
     async run(msg, args){
 
-        console.log(msg.member.voiceChannelID)
         //check if the user is in a voice channel
-        if(!msg.member.voiceChannelID){
+        if(!msg.member.voice.channelID){
             return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `You're not in a voice channel.`));
         }
 
@@ -53,6 +52,7 @@ class Play extends TsubasaCommand {
                 return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
             }
 
+            console.log(result);
             //get data from the result
             const {type, tracks, playlistName} = result;
 
