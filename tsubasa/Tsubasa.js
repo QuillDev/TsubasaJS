@@ -1,11 +1,18 @@
 const Discord = require('discord.js');
-const {CommandHandler} = require('./CommandHandler')
-const logger = require("../utils/logger");
+const {
+    TsubasaCommandHandler
+} = require('./TsubasaCommandHandler')
+const {
+    TsubasaLogger
+} = require("./TsubasaLogger");
+const {
+    TsubasaEventHandler
+} = require("./TsubasaEventHandler")
 
 /**
  * Constructor for Tsubasa wrapper on discord.js client
  */
-class Tsubasa extends Discord.Client{
+class Tsubasa extends Discord.Client {
     constructor(config) {
 
         //inherit default discord.client stuff
@@ -15,22 +22,19 @@ class Tsubasa extends Discord.Client{
         this.login(config.token)
             .catch(err => console.log(err));
 
-        //create commands collection
+        //setup command stuff
         this.commands = new Discord.Collection();
 
-        //dynamically load commands for the bot
-        this.commandHandler = new CommandHandler(this);
+        //setup logger
+        this.logger = new TsubasaLogger(this);
+        //setup handlers for the client
+        new TsubasaEventHandler(this);
+        new TsubasaCommandHandler(this);
 
-        //ready event
-        this.on('ready', () => {
-            logger.logInfo(`Client logged in as ${this.user.username}`);
-        });
 
-        //message handler
-        this.on('message', (msg) => this.commandHandler.resolve(msg));
     }
 }
 
 module.exports = {
-    Tsubasa : Tsubasa
+    Tsubasa: Tsubasa
 }

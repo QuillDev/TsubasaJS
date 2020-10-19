@@ -1,9 +1,6 @@
 //Load Tsubasa wrapper for discord.js Client
 const {Tsubasa} = require('./tsubasa/Tsubasa');
 
-//include the custom logger
-const logger = require('./utils/logger');
-
 //setup dotenv for local vars
 require('dotenv').config();
 
@@ -13,4 +10,4 @@ let config = {
 }
 
 //create the client using the config
-const client = new Tsubasa(config);
+new Tsubasa(config);

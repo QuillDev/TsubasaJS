@@ -1,16 +1,15 @@
 const chalk = require('chalk');
 const glob = require("glob");
 const path = require("path");
-const logger = require("../utils/logger");
 
-class CommandHandler {
+class TsubasaCommandHandler {
     /**
      * Constructor for command handler
      * @param {Tsubasa} client
      */
     constructor(client) {
         this.client = client;
-        registerDynamic(this.client);
+        registerDynamic(client);
     }
     /**
      * Function for resolving the command that should be used for the given query
@@ -52,11 +51,15 @@ function registerDynamic(client) {
     glob(path.join(__dirname, "../modules/*/*.js"), {}, function(er, files) {
         //iterate though all of the files found
         for(const file of files){
+
+            //require the file and load it as a command
             const command = require(file);
 
+            //get a pretty name to print into the console, purely cosmetic
             const printName = "/modules/" + file.split("/modules/")[1];
+
             //log that we loaded a new command
-            console.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(printName)}`));
+            client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(printName)}`))
 
             //add the command to the client
             client.commands.set(command.name, command);
@@ -65,5 +68,5 @@ function registerDynamic(client) {
 }
 
 module.exports = {
-    CommandHandler: CommandHandler,
+    TsubasaCommandHandler: TsubasaCommandHandler,
 }

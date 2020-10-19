@@ -9,7 +9,7 @@ const base = "https://danbooru.donmai.us";
  * @param {"discord.js", Message}
  * @param {String[]} args
  */
-async function hentaiSearch(message, args) {
+async function run(message, args) {
 
     if(!message.channel.nsfw){
         return embedHelper.createErrorEmbed("Tsubasa - Hentai", "The channel must be set to NSFW to use NSFW commands! To do this look here\nhttps://support.discord.com/hc/en-us/articles/115000084051-NSFW-Channels-and-Content")
@@ -103,7 +103,7 @@ module.exports = {
     name: 'hentai',
     description: 'Searches danbooru for hentai.',
     async execute(message, args){
-        await message.channel.send(await hentaiSearch(message, args));
+        await message.channel.send(await run(message, args));
     },
 };
 
