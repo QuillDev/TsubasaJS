@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-const glob = require("glob");
-const path = require("path");
+const glob = require('glob');
+const path = require('path');
 
 class TsubasaCommandHandler {
     /**
@@ -32,7 +32,7 @@ class TsubasaCommandHandler {
             //executes the hentai command
             case 'hentai': {
                 this.client.commands.get('hentai').execute(message, args)
-                    .catch(err => logger.logError(err)); //log the error if one occurs
+                    .catch(err => this.clientlogger.logError(err)); //log the error if one occurs
                 break;
             }
             default: message.reply("Fuck man");
@@ -68,5 +68,5 @@ function registerDynamic(client) {
 }
 
 module.exports = {
-    TsubasaCommandHandler: TsubasaCommandHandler,
+    TsubasaCommandHandler: TsubasaCommandHandler
 }

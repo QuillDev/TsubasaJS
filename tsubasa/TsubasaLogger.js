@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const Tsubasa = require('../tsubasa/Tsubasa');
+const Tsubasa = require('./Tsubasa');
 
 //Class for logger that Tsubasa uses
 class TsubasaLogger {
@@ -22,10 +22,19 @@ class TsubasaLogger {
 
     /**
     * Log stack traces and error messages
-    * @param error the error to log
+    * @param {Error} error the error to log
     */
     error(error){
         console.error(`${chalk.bold("[ERROR]")} ${chalk.red(chalk.bold(error))}`);
+    }
+
+    /**
+     * Logs a debug message
+     * @param {String} constructor
+     * @param {String} message
+     */
+    debug(constructor, message){
+        console.log(chalk.green(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`));
     }
 }
 
