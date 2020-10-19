@@ -86,6 +86,18 @@ class TsubasaDispatcher {
         this.player.disconnect();
 
         //log that we disconnected
-        this.client.logger.debug(this.player.constructor.name, `Destroyed the player dispatcher for guild ${this.guild.name}: ID: "${this.guild.id}"`)
+        this.client.logger.debug(this.player.constructor.name, `Destroyed the player dispatcher for guild ${this.guild.name}: ID: "${this.guild.id}"`);
+
+        //remove this guild from the queueing system
+        this.client.queue.delete(this.guild.id);
+
+        //TODO see if I care about loggin these errors.. prob not?
+        //send a message to the channel about leaving due to the queue
+        this.text.send(embedhelper.createEmbed('Tsubasa - Music', "Left the channel because the queue has been emptied!"))
+            .catch(() => null);
     }
+}
+
+module.exports = {
+    TsubasaDispatcher: TsubasaDispatcher
 }

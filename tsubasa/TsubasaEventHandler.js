@@ -1,18 +1,28 @@
+const { readdirSync } = require('fs');
+
 class TsubasaEventHandler {
     constructor(client) {
         this.client = client;
+        this.built = false;
+        client.on('shardReconnecting', (id) => client.logger.debug(`Shard ${id}`, 'Shard Reconnecting'));
+        client.on('shardResumed', (id, rep) => client.logger.debug(`Shard ${id}`, `Shard Resume | ${rep} events replayed`));
+        client.on('shardReady', (id) => client.logger.debug(`Shard ${id}`, 'Shard Ready'));
+    }
 
-        //ready event
-        this.client.once('ready', () => {
-            this.client.logger.log(`Client logged in as ${this.client.user.username}`)
-        });
-
-        //message handler
-        this.client.on('message', (msg) => this.commandHandler.resolve(msg));
+    build() {
+        if (this.built) return this;
+        const events = readdirSync(this.client.location + '/events');
+        let index = 0;
+        for (let event of events) {
+            event = new (require(`../events/${event}`))(this.client);
+            const exec = event.exec.bind(event);
+            event.once ? this.client.once(event.name,  event.exec.bind(event)) : this.client.on(event.name, exec);
+            index++;
+        }
+        this.client.logger.debug(this.constructor.name, `Loaded ${index} client event(s)`);
+        this.built = true;
+        return this;
     }
 }
 
-//export the event handler
-module.exports = {
-    TsubasaEventHandler: TsubasaEventHandler
-}
+module.exports = TsubasaEventHandler;

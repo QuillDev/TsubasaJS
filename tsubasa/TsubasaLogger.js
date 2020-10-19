@@ -15,7 +15,7 @@ class TsubasaLogger {
      * Logs a message
      * @param {String} message 
      */
-    log(message){
+    log(message, alt){
         //log the message to the console
         console.log(chalk.blue(`${chalk.bold("[INFO]")} ${message}`));
     }
@@ -34,11 +34,9 @@ class TsubasaLogger {
      * @param {String} message
      */
     debug(constructor, message){
-        console.log(chalk.green(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`));
+        console.log(chalk.blueBright(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`));
     }
 }
 
 //export the logger
-module.exports = {
-    TsubasaLogger: TsubasaLogger
-}
+module.exports = TsubasaLogger;

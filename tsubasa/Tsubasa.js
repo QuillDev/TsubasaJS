@@ -1,13 +1,12 @@
 const Discord = require('discord.js');
-const {
-    TsubasaCommandHandler
-} = require('./TsubasaCommandHandler')
-const {
-    TsubasaLogger
-} = require("./TsubasaLogger");
-const {
-    TsubasaEventHandler
-} = require("./TsubasaEventHandler")
+
+const TsubasaLogger = require("./TsubasaLogger");
+const TsubasaEventHandler = require("./TsubasaEventHandler");
+const TsubasaQueue = require('../tsubasa-music/TsubasaQueue');
+const TsubasaCommandHandler = require('./TsubasaCommandHandler');
+const TsubasaSettingsManager = require('./TsubasaSettingsManager');
+
+const defaults = require('../config/bot-config.json');
 
 /**
  * Constructor for Tsubasa wrapper on discord.js client
@@ -18,6 +17,10 @@ class Tsubasa extends Discord.Client {
         //inherit default discord.client stuff
         super()
 
+        //TODO custom set color
+        Object.defineProperty(this, 'location', { value: process.cwd() });
+        Object.defineProperty(this, 'color', { value: 0x7E686C });
+
         //login the bot using the bot token from the config
         this.login(config.token)
             .catch(err => console.log(err));
@@ -27,11 +30,16 @@ class Tsubasa extends Discord.Client {
 
         //setup logger
         this.logger = new TsubasaLogger(this);
+        this.queue = new TsubasaQueue(this);
+        this.settings = new TsubasaSettingsManager(this);
+
         //setup handlers for the client
-        new TsubasaEventHandler(this);
-        new TsubasaCommandHandler(this);
+        new TsubasaEventHandler(this).build();
+        new TsubasaCommandHandler(this).build();
+    }
 
-
+    get getDefaultConfig(){
+        return defaults;
     }
 }
 
