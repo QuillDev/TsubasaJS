@@ -8,30 +8,30 @@ class TsubasaMusicHandler extends Shoukaku {
 
     /**
      * Constructor for our Shoukaku wrapper that uses our custom client implementation
-     * @param {Tsubasa} client 
+     * @param {Tsubasa} client
      */
     constructor(client) {
-        super(client, LavalinkServers, Options);
+        constructor(client)
+        {
+            super(client, LavalinkServers, Options);
 
-        //when we connect to the lavalink servers
-        this.once('ready', (name, resumed, reason) => {
-            client.logger.log(`Lavalink Node ${name} is now connected!`, reason || "No reason")
-        });
-
-        //whenever an error occurs
-        this.on('error', (name, err) => {
-            client.logger.log(err, reason || "No reason");
-        });
-
-        //executes whenever the connectionc closes
-        this.on('close', (name, code, reason) => {
-            client.logger.log(`Lavalink Node: ${name} closed with code ${code}`, reason || "No reason")
-        });
-
-        //executes whever the lavalink node is disconnected
-        this.on('disconnected', (name, reason) => {
-            client.logger.log(`Lavalink Node: ${name} disconnected`, reason || 'No reason')
-        });
+            this.on('ready',
+                (name, resumed) =>
+                    client.logger.log(`Lavalink Node: ${name} is now connected`)
+            );
+            this.on('error',
+                (name, error) =>
+                    client.logger.error(error)
+            );
+            this.on('close',
+                (name, code, reason) =>
+                    client.logger.log(`Lavalink Node: ${name} closed with code ${code}`)
+            );
+            this.on('disconnected',
+                (name, reason) =>
+                    client.logger.log(`Lavalink Node: ${name} disconnected`)
+            );
+        }
     }
 }
 

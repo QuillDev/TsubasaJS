@@ -15,7 +15,7 @@ class TsubasaLogger {
      * Logs a message
      * @param {String} message 
      */
-    log(message, alt){
+    log(message){
         //log the message to the console
         console.log(chalk.blue(`${chalk.bold("[INFO]")} ${message}`));
     }
