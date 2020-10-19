@@ -27,14 +27,15 @@ class Play extends TsubasaCommand {
 
     async run(msg, args){
 
+        console.log(msg.member.voiceChannelID)
         //check if the user is in a voice channel
         if(!msg.member.voiceChannelID){
-            return await msg.channel.send(embedhelper.createEmbed('Tsubasa - Play', `You're not in a voice channel.`));
+            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `You're not in a voice channel.`));
         }
 
         //if there is no first argument
         if(!args[0]){
-            return await msg.channel.send(embedhelper.createEmbed('Tsubasa - Play', 'You did not specify a link or query'));
+            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', 'You did not specify a link or query'));
         }
 
         //get the music node
@@ -49,7 +50,7 @@ class Play extends TsubasaCommand {
 
             //if the result was bad or invalid
             if(!result){
-                return await msg.channel.send(embedhelper.createEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
+                return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
             }
 
             //get data from the result
@@ -92,7 +93,7 @@ class Play extends TsubasaCommand {
 
         //if the tracks came back empty
         if(!searchData.tracks.length){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find any tracks for the query ${query]}`));
+            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find any tracks for the query ${query}`));
         }
 
         //get the first track

@@ -33,7 +33,7 @@ class Tsubasa extends Discord.Client {
         this.logger = new TsubasaLogger(this);
         this.queue = new TsubasaQueue(this);
         this.settings = new TsubasaSettingsManager(this);
-        this.musicHandler = new TSubasaMusicHandler(this);
+        this.musicHandler = new TsubasaMusicHandler(this);
 
         //setup handlers for the client
         new TsubasaEventHandler(this).build();
