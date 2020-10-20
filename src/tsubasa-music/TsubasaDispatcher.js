@@ -1,5 +1,3 @@
-const embedhelper = require('../utils/embedhelper');
-
 class TsubasaDispatcher {
     /**
      * Constructor for a Tsubasa Audio dispatcher
@@ -15,7 +13,7 @@ class TsubasaDispatcher {
 
         //on the player start event send messages to the text channel we're bound to
         this.player.on('start', () => {
-            this.text.send(embedhelper.createEmbed('Tsubasa - Music', `Now Playing: **${this.current.info.title}**`))
+            this.text.send(this.client.embedHelper.createEmbed('Tsubasa - Music', `Now Playing: **${this.current.info.title}**`))
                 .catch(() => null);
         });
 
@@ -100,11 +98,9 @@ class TsubasaDispatcher {
 
         //TODO see if I care about loggin these errors.. prob not?
         //send a message to the channel about leaving due to the queue
-        this.text.send(embedhelper.createEmbed('Tsubasa - Music', "Left the channel because the queue has been emptied!"))
+        this.text.send(this.client.embedHelper.createEmbed('Tsubasa - Music', "Left the channel because the queue has been emptied!"))
             .catch(() => null);
     }
 }
 
-module.exports = {
-    TsubasaDispatcher: TsubasaDispatcher
-}
+module.exports = TsubasaDispatcher;

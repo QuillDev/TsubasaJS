@@ -1,5 +1,6 @@
 const TsubasaCommand = require('../../tsubasa-abstract/TsubasaCommand');
 
+//TODO rework this to work with embed at some point
 class Ping extends TsubasaCommand {
     get name() {
         return 'ping';

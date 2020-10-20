@@ -1,5 +1,5 @@
 const got = require('got');
-const embedHelper = require('../../utils/embedhelper');
+const embedHelper = require('../../utils/TsubasaEmbedHelper');
 const TsubasaCommand  = require('../../tsubasa-abstract/TsubasaCommand')
 
 

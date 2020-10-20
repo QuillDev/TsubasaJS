@@ -1,4 +1,4 @@
-const {TsubasaDispatcher} = require("./TsubasaDispatcher");
+const TsubasaDispatcher = require("./TsubasaDispatcher");
 const { Message } = require("discord.js");
 
 
@@ -22,9 +22,8 @@ class TsubasaQueue extends Map {
      * @return {Promise<TsubasaDispatcher>} returns the dispatcher for the audio channel
      */
     async handle(node, track, msg){
-
         //check if we have an existing player in the guild
-        const existing  = this.get(msg.guild.id);
+        const existing = this.get(msg.guild.id);
 
         if(!existing){
 

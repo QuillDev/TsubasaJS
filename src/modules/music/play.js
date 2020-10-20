@@ -1,5 +1,4 @@
 const TsubasaCommand = require('../../tsubasa-abstract/TsubasaCommand');
-const embedhelper = require('../../utils/embedhelper');
 const ytscraper = require('../../services/music/youtubeScraperService');
 
 class Play extends TsubasaCommand {
@@ -27,15 +26,15 @@ class Play extends TsubasaCommand {
     }
 
     async run(msg, args){
-
+        
         //check if the user is in a voice channel
         if(!msg.member.voice.channelID){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `You're not in a voice channel.`));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Play', `You're not in a voice channel.`));
         }
 
         //if there is no first argument
         if(!args[0]){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', 'You did not specify a link or query'));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Play', 'You did not specify a link or query'));
         }
 
         //get the music node
@@ -50,7 +49,7 @@ class Play extends TsubasaCommand {
 
             //if the result was bad or invalid
             if(result == null){
-                return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
+                return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
             }
 
             //get data from the result
@@ -75,11 +74,11 @@ class Play extends TsubasaCommand {
 
             //print messages about adding the song to the queue
             if(isPlaylist){
-                await msg.channel.send(embedhelper.createEmbed("Tsubasa - Play", `Added the playlist **${playlistName}** to the queue!`))
+                await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the playlist **${playlistName}** to the queue!`))
                     .catch(() => null);
             }
             else {
-                await msg.channel.send(embedhelper.createEmbed("Tsubasa - Play", `Added the song **${track.info.title}** to the queue!`))
+                await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the song **${track.info.title}** to the queue!`))
                     .catch(() => null);
             }
 
@@ -94,12 +93,12 @@ class Play extends TsubasaCommand {
 
         //if there is no search data send an error
         if(!searchData){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `There was an issue when finding songs for your query ${query}, please try again!`))
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Play', `There was an issue when finding songs for your query ${query}, please try again!`))
         }
 
         //if the tracks came back empty
         if(!searchData.tracks.length){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find any tracks for the query ${query}`));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Play', `Couldn't find any tracks for the query ${query}`));
         }
 
         //get the first track
@@ -107,7 +106,7 @@ class Play extends TsubasaCommand {
 
         const res = await this.client.queue.handle(node, track, msg);
 
-        await msg.channel.send(embedhelper.createEmbed("Tsubasa - Play", `Added the track **${track.info.title}** to the queue!`))
+        await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the track **${track.info.title}** to the queue!`))
             .catch(() => null);
 
         if(res) await res.play();

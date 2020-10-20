@@ -1,5 +1,4 @@
 const TsubasaCommand = require('../../tsubasa-abstract/TsubasaCommand');
-const embedhelper = require('../../utils/embedhelper');
 
 class Queue extends TsubasaCommand {
 
@@ -19,7 +18,7 @@ class Queue extends TsubasaCommand {
 
         //if the member is not in a voice channel
         if(!msg.member.voice.channelID){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Queue', 'You need to be in a voice channel to use this command!'));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Queue', 'You need to be in a voice channel to use this command!'));
         }
 
         //get the 'queue' from the guild
@@ -27,17 +26,17 @@ class Queue extends TsubasaCommand {
 
         //if queue is null
         if(!res){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Queue', `Can't get the player for ths channel, does it exist?`));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Queue', `Can't get the player for ths channel, does it exist?`));
         }
 
         //if no song is playing then send an error
         if(!res.current){
-            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Queue', `No track is currently playing.`));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed('Tsubasa - Queue', `No track is currently playing.`));
         }
 
         //if the length of the queue is zero
         if(res.queue.length === 0){
-            return await msg.channel.send(embedhelper.createEmbed('Tsubasa - Queue',
+            return await msg.channel.send(this.client.embedHelper.createEmbed('Tsubasa - Queue',
                 `
                 Currently Playing: ${res.current.info.title}\n
                 No other songs in queue.
@@ -55,7 +54,7 @@ class Queue extends TsubasaCommand {
             }
 
             //print out the queue
-            return await msg.channel.send(embedhelper.createEmbed('Tsubasa - Queue', description));
+            return await msg.channel.send(this.client.embedHelper.createEmbed('Tsubasa - Queue', description));
         }
         else {
             //start the description
@@ -68,7 +67,7 @@ class Queue extends TsubasaCommand {
             description += `and ${res.queue.length - 5} others!`;
 
             //print out the queue
-            return await msg.channel.send(embedhelper.createEmbed('Tsubasa - Queue', description));
+            return await msg.channel.send(this.client.embedHelper.createEmbed('Tsubasa - Queue', description));
         }
 
     }

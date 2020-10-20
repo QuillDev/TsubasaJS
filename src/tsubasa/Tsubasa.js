@@ -6,6 +6,7 @@ const TsubasaQueue = require('../tsubasa-music/TsubasaQueue');
 const TsubasaCommandHandler = require('./TsubasaCommandHandler');
 const TsubasaSettingsManager = require('./TsubasaSettingsManager');
 const TsubasaMusicHandler = require('../tsubasa-music/TsubasaMusicHandler');
+const TsubasaEmbedHelper = require('../utils/TsubasaEmbedHelper');
 
 const defaults = require('../../config/bot-config.json');
 
@@ -34,10 +35,11 @@ class Tsubasa extends Discord.Client {
         this.queue = new TsubasaQueue(this);
         this.settings = new TsubasaSettingsManager(this);
         this.musicHandler = new TsubasaMusicHandler(this);
+        this.embedHelper = new TsubasaEmbedHelper(this);
 
         //setup handlers for the client
         new TsubasaEventHandler(this).build();
-        new TsubasaCommandHandler(this).build();
+        new TsubasaCommandHandler(this).build().catch(err => this.logger.error(err));
     }
 
     get getDefaultConfig(){
