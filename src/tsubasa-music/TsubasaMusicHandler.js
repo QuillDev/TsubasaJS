@@ -1,6 +1,6 @@
 const {Shoukaku} = require('shoukaku');
-const LavalinkServers = require('../config/lavalink-servers.json');
-const Options = require('../config/lavalink-options.json');
+const LavalinkServers = require('../../config/lavalink-servers.json');
+const Options = require('../../config/lavalink-options.json');
 
 
 //Wrapper for Shoukaku that handles Tsubasa music stuff

@@ -11,7 +11,7 @@ class TsubasaEventHandler {
 
     build() {
         if (this.built) return this;
-        const events = readdirSync(this.client.location + '/events');
+        const events = readdirSync(this.client.location + '/src/events');
         let index = 0;
         for (let event of events) {
             event = new (require(`../events/${event}`))(this.client);

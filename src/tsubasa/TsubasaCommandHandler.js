@@ -14,7 +14,7 @@ class TsubasaCommandHandler extends EventEmitter{
 
     async build(){
         //get the module pattern we're using to match
-        const modulePattern = path.join(this.client.location + `/modules/*/*.js`);
+        const modulePattern = path.join(this.client.location + `/src/modules/*/*.js`);
         this.client.logger.debug(this.constructor.name, `Loading modules using pattern ${modulePattern}`);
 
         //use glob to search for modules matching the path pattern of our module
@@ -26,7 +26,7 @@ class TsubasaCommandHandler extends EventEmitter{
             for(const file of files){
                 const command = new (require(file))(this.client);
                 this.commands.set(command.name, command)
-                this.client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(file)}`), null);
+                this.client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(file)}`));
             }
         });
 

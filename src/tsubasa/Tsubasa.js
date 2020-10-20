@@ -7,7 +7,7 @@ const TsubasaCommandHandler = require('./TsubasaCommandHandler');
 const TsubasaSettingsManager = require('./TsubasaSettingsManager');
 const TsubasaMusicHandler = require('../tsubasa-music/TsubasaMusicHandler');
 
-const defaults = require('../config/bot-config.json');
+const defaults = require('../../config/bot-config.json');
 
 /**
  * Constructor for Tsubasa wrapper on discord.js client

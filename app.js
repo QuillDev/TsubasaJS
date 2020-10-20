@@ -1,10 +1,8 @@
 //Load Tsubasa wrapper for discord.js Client
-const {Tsubasa} = require('./tsubasa/Tsubasa');
+const {Tsubasa} = require('./src/tsubasa/Tsubasa');
 
 //setup dotenv for local vars
 require('dotenv').config();
-
-//TODO Maybe load this from a local file
 
 
 let live = false;
