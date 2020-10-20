@@ -89,7 +89,7 @@ class Play extends TsubasaCommand {
         }
 
         //search youtube with the given query
-        let scraperResult = await ytscraper.searchAndGetFirst(query);
+        const scraperResult = await ytscraper.searchAndGetFirst(query);
         const searchData = await node.rest.resolve(scraperResult);
 
         //if there is no search data send an error
