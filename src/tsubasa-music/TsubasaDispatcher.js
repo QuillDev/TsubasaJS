@@ -69,7 +69,6 @@ class TsubasaDispatcher {
         //set the current track to the first one in the queue, then shift it
         this.current = this.queue.shift();
 
-
         //if current is null, destroy the player
         if(!this.current){
             this.destroy();
