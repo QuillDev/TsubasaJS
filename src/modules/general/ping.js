@@ -15,8 +15,12 @@ class Ping extends TsubasaCommand {
     }
 
     async run(msg) {
-        const sent = await msg.channel.send('....');
-        await sent.edit(`Command Delay: **${Math.round(sent.createdTimestamp - msg.createdTimestamp)}ms**\nGateway Ping: **${Math.round(msg.guild.shard.ping)}ms**`);
+        const sent = await msg.channel.send('Pinging...');
+        await sent.edit(this.client.embedHelper.createEmbed('Tsubasa - Ping',
+            `
+            Command Delay: **${Math.round(sent.createdTimestamp - msg.createdTimestamp)}ms**
+            Gateway Ping: **${Math.round(msg.guild.shard.ping)}ms**
+            `))
     }
 }
 module.exports = Ping;

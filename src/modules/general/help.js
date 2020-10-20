@@ -15,7 +15,7 @@ class Help extends TsubasaCommand {
     }
 
     async run(msg){
-        return await msg.channel.send(this.client.enbedHelper('Tsubasa - Help',
+        return await msg.channel.send(this.client.embedHelper.createEmbed('Tsubasa - Help',
             `
             Documentation on all commands can be found here!
             https://quilldev.github.io/Tsubasa/
