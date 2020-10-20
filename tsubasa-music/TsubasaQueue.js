@@ -19,8 +19,10 @@ class TsubasaQueue extends Map {
      * @param {*} node 
      * @param {*} track
      * @param {Message} msg the message
+     * @return {Promise<TsubasaDispatcher>} returns the dispatcher for the audio channel
      */
     async handle(node, track, msg){
+
         //check if we have an existing player in the guild
         const existing  = this.get(msg.guild.id);
 

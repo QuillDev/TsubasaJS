@@ -47,8 +47,6 @@ class Play extends TsubasaCommand {
         if(this._checkURL(query)){
             const result = await node.rest.resolve(query);
 
-            console.log(result);
-
             //if the result was bad or invalid
             if(result == null){
                 return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `Couldn't find anything for the query ${query}`));
@@ -56,8 +54,6 @@ class Play extends TsubasaCommand {
 
             //get data from the result
             const {type, tracks, playlistName} = result;
-
-
 
             //get the first track from the tracks list
             let track = tracks.shift();
@@ -94,6 +90,10 @@ class Play extends TsubasaCommand {
         //TODO Port my custom implementation from C# this one is kinda trash
         //search youtube with the given query
         let searchData = await node.rest.resolve(query, 'youtube');
+
+        if(!searchData){
+            return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `There was an issue when finding songs for your query ${query}, please try again!`))
+        }
 
         //if the tracks came back empty
         if(!searchData.tracks.length){
