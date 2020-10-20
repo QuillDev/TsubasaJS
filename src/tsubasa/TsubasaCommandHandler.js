@@ -26,19 +26,22 @@ class TsubasaCommandHandler extends EventEmitter{
 
             //Start loading any files that we found
             for(const file of files){
+
                 //load the command from the file
                 const command = new (require(file))(this.client);
 
                 //get a prettified name for the file
                 const prettyName = file.split('/modules/')[1];
 
+                //add the command
+                this.commands.set(command.name, command)
+
                 //get a prettier name for the file
                 this.client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(prettyName)}`));
             }
 
             //log the amount of commands that we loaded
-            this.client.logger.debug(this.constructor.name, `Loaded ${files.length} client command(s)`);
-
+            this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} client command(s)`);
         });
 
         const bind = this.exec.bind(this);
@@ -49,29 +52,30 @@ class TsubasaCommandHandler extends EventEmitter{
 
     async exec(msg) {
         try {
-
+            console.log(1);
             //If the message is from a bot or is not from a text channel return
             if (msg.author.bot || msg.channel.type !== 'text') return;
 
             //if we don't have permission to send messages, return
             if (!msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) return;
 
+            console.log(2);
             //get the config from the client settings
             const config = await this.client.settings.get(msg.guild.id, true);
 
             //if the message doesn't start with the prefix, return
             if (!msg.content.startsWith(config.prefix)) return;
-
+            console.log(3);
             //split the command and arguments from the message
             const args = msg.content.split(' ');
             let command = args.shift().slice(config.prefix.length);
-
+            console.log(4);
             //if we don't have a command that matches the one tried, return
             if (!this.commands.has(command)) return;
-
+            console.log(5);
             //set the command to the one we found
             command  = this.commands.get(command);
-
+            console.log(6);
             //check if we have permissions to execute the command
             if (command.permissions && !this.permissions(msg, command.permissions)) {
                 await msg.channel.send(`You don't have permission to execute this command.`);

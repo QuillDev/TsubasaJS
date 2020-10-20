@@ -14,7 +14,7 @@ class TsubasaEventHandler {
         const events = readdirSync(this.client.location + '/src/events');
         let index = 0;
         for (let event of events) {
-            event = new (require(`../events/${event}`))(this.client);
+            event = new (require(`${this.client.location}/src/events/${event}`))(this.client);
             const exec = event.exec.bind(event);
             event.once ? this.client.once(event.name,  event.exec.bind(event)) : this.client.on(event.name, exec);
             index++;
