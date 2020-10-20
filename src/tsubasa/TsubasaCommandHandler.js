@@ -15,6 +15,8 @@ class TsubasaCommandHandler extends EventEmitter{
     async build(){
         //get the module pattern we're using to match
         const modulePattern = path.join(this.client.location + `/src/modules/*/*.js`);
+
+        //log that we're loading modules
         this.client.logger.debug(this.constructor.name, `Loading modules using pattern ${modulePattern}`);
 
         //use glob to search for modules matching the path pattern of our module
@@ -24,15 +26,23 @@ class TsubasaCommandHandler extends EventEmitter{
 
             //Start loading any files that we found
             for(const file of files){
+                //load the command from the file
                 const command = new (require(file))(this.client);
-                this.commands.set(command.name, command)
-                this.client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(file)}`));
+
+                //get a prettified name for the file
+                const prettyName = file.split('/modules/')[1];
+
+                //get a prettier name for the file
+                this.client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(prettyName)}`));
             }
+
+            //log the amount of commands that we loaded
+            this.client.logger.debug(this.constructor.name, `Loaded ${files.length} client command(s)`);
+
         });
 
         const bind = this.exec.bind(this);
         this.client.on('message', bind);
-        this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} client command(s)`);
         this.built = true;
         return this;
     }
@@ -73,10 +83,13 @@ class TsubasaCommandHandler extends EventEmitter{
         }
     }
 
+    //TODO why it mad at dis?
     permissions(msg, perms) {
         if (!Array.isArray(perms)) perms = [perms];
-        if (perms.includes('OWNER'))
+        if (perms.includes('OWNER')){
             return config.owners.includes(msg.author.id);
+        }
+
         return msg.channel.permissionsFor(msg.member).has(perms);
     }
 }

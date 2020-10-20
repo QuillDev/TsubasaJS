@@ -1,6 +1,5 @@
 const TsubasaCommand = require('../../tsubasa-abstract/TsubasaCommand');
 
-//TODO rework this to work with embed at some point
 class Ping extends TsubasaCommand {
     get name() {
         return 'ping';
@@ -20,7 +19,7 @@ class Ping extends TsubasaCommand {
             `
             Command Delay: **${Math.round(sent.createdTimestamp - msg.createdTimestamp)}ms**
             Gateway Ping: **${Math.round(msg.guild.shard.ping)}ms**
-            `))
+            `));
     }
 }
 module.exports = Ping;
