@@ -1,5 +1,6 @@
 const TsubasaCommand = require('../../tsubasa-abstract/TsubasaCommand');
 const embedhelper = require('../../utils/embedhelper');
+const ytscraper = require('../../services/music/youtubeScraperService');
 
 class Play extends TsubasaCommand {
     get name() {
@@ -87,10 +88,11 @@ class Play extends TsubasaCommand {
             return;
         }
 
-        //TODO Port my custom implementation from C# this one is kinda trash
         //search youtube with the given query
-        let searchData = await node.rest.resolve(query, 'youtube');
+        let scraperResult = await ytscraper.searchAndGetFirst(query);
+        const searchData = await node.rest.resolve(scraperResult);
 
+        //if there is no search data send an error
         if(!searchData){
             return await msg.channel.send(embedhelper.createErrorEmbed('Tsubasa - Play', `There was an issue when finding songs for your query ${query}, please try again!`))
         }

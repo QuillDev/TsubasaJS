@@ -97,4 +97,7 @@ async function searchAndGetFirst(query, page = 1){
     return urls[0];
 }
 
-searchAndGetFirst('zutomayo', 1).then(res => console.log(res))
+module.exports = {
+    search: search,
+    searchAndGetFirst: searchAndGetFirst
+}
