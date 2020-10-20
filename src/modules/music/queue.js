@@ -61,7 +61,7 @@ class Queue extends TsubasaCommand {
             let description = `Currently Playing: ${res.current.info.title}\n`
 
             //iterate through the first five songs and add them to the description
-            for(let index = 0; index < res.queue.length; index++){
+            for(let index = 0; index < 5; index++){
                 description += `${index+1}) ${res.queue[index].info.title}\n`;
             }
             description += `and ${res.queue.length - 5} others!`;
