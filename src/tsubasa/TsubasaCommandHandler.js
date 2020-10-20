@@ -52,30 +52,28 @@ class TsubasaCommandHandler extends EventEmitter{
 
     async exec(msg) {
         try {
-            console.log(1);
             //If the message is from a bot or is not from a text channel return
             if (msg.author.bot || msg.channel.type !== 'text') return;
 
             //if we don't have permission to send messages, return
             if (!msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) return;
 
-            console.log(2);
             //get the config from the client settings
             const config = await this.client.settings.get(msg.guild.id, true);
 
             //if the message doesn't start with the prefix, return
             if (!msg.content.startsWith(config.prefix)) return;
-            console.log(3);
+
             //split the command and arguments from the message
             const args = msg.content.split(' ');
             let command = args.shift().slice(config.prefix.length);
-            console.log(4);
+
             //if we don't have a command that matches the one tried, return
             if (!this.commands.has(command)) return;
-            console.log(5);
+
             //set the command to the one we found
             command  = this.commands.get(command);
-            console.log(6);
+
             //check if we have permissions to execute the command
             if (command.permissions && !this.permissions(msg, command.permissions)) {
                 await msg.channel.send(`You don't have permission to execute this command.`);
