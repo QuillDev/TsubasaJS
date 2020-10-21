@@ -1,5 +1,5 @@
-const chalk = require('chalk');
-const Tsubasa = require('./Tsubasa');
+const chalk = require("chalk");
+const Tsubasa = require("./Tsubasa");
 
 //Class for logger that Tsubasa uses
 class TsubasaLogger {

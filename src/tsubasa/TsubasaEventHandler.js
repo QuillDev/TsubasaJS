@@ -1,17 +1,17 @@
-const { readdirSync } = require('fs');
+const { readdirSync } = require("fs");
 
 class TsubasaEventHandler {
     constructor(client) {
         this.client = client;
         this.built = false;
-        client.on('shardReconnecting', (id) => client.logger.debug(`Shard ${id}`, 'Shard Reconnecting'));
-        client.on('shardResumed', (id, rep) => client.logger.debug(`Shard ${id}`, `Shard Resume | ${rep} events replayed`));
-        client.on('shardReady', (id) => client.logger.debug(`Shard ${id}`, 'Shard Ready'));
+        client.on("shardReconnecting", (id) => client.logger.debug(`Shard ${id}`, "Shard Reconnecting"));
+        client.on("shardResumed", (id, rep) => client.logger.debug(`Shard ${id}`, `Shard Resume | ${rep} events replayed`));
+        client.on("shardReady", (id) => client.logger.debug(`Shard ${id}`, "Shard Ready"));
     }
 
     build() {
         if (this.built) return this;
-        const events = readdirSync(this.client.location + '/src/events');
+        const events = readdirSync(this.client.location + "/src/events");
         let index = 0;
         for (let event of events) {
             event = new (require(`${this.client.location}/src/events/${event}`))(this.client);

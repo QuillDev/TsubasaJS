@@ -1,6 +1,6 @@
 class TsubasaSettings {
     constructor(raw, db) {
-        Object.defineProperty(this, 'db', {value: db});
+        Object.defineProperty(this, "db", {value: db});
         this.id = raw.id;
         this.prefix = raw.prefix;
     }

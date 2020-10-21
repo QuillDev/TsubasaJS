@@ -11,14 +11,14 @@ class TsubasaDispatcher {
         this.queue = [];
         this.current = null;
 
-        //on the player start event send messages to the text channel we're bound to
-        this.player.on('start', () => {
-            this.text.send(this.client.embedHelper.createEmbed('Tsubasa - Music', `Now Playing: **${this.current.info.title}**`))
+        //on the player start event send messages to the text channel we"re bound to
+        this.player.on("start", () => {
+            this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Music", `Now Playing: **${this.current.info.title}**`))
                 .catch(() => null);
         });
 
         //when a song ends try to play the next track, if that fails then destroy it.
-        this.player.on('end', () => {
+        this.player.on("end", () => {
             this.play()
                 .catch(err => {
                     this.queue.length = 0;
@@ -28,7 +28,7 @@ class TsubasaDispatcher {
         });
 
         //Iterate through the player types
-        for(const playerEvent of ['closed', 'error', 'nodeDisconnect']) {
+        for(const playerEvent of ["closed", "error", "nodeDisconnect"]) {
 
             //on a player event check if it was an error and destroy it
             this.player.on(playerEvent, data => {
@@ -59,7 +59,7 @@ class TsubasaDispatcher {
     async play() {
 
         //TODO was a || !queue.length here btw
-        //if this doesn't exist or if the queue length is 0 then destroy the player
+        //if this doesn"t exist or if the queue length is 0 then destroy the player
         if(!this.exists){
             return this.destroy();
         }
@@ -98,7 +98,7 @@ class TsubasaDispatcher {
 
         //TODO see if I care about loggin these errors.. prob not?
         //send a message to the channel about leaving due to the queue
-        this.text.send(this.client.embedHelper.createEmbed('Tsubasa - Music', "Left the channel because the queue has been emptied!"))
+        this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Music", "Left the channel because the queue has been emptied!"))
             .catch(() => null);
     }
 }

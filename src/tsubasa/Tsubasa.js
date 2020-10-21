@@ -1,14 +1,14 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 const TsubasaLogger = require("./TsubasaLogger");
 const TsubasaEventHandler = require("./TsubasaEventHandler");
-const TsubasaQueue = require('../tsubasa-music/TsubasaQueue');
-const TsubasaCommandHandler = require('./TsubasaCommandHandler');
-const TsubasaSettingsManager = require('./TsubasaSettingsManager');
-const TsubasaMusicHandler = require('../tsubasa-music/TsubasaMusicHandler');
-const TsubasaEmbedHelper = require('../utils/TsubasaEmbedHelper');
+const TsubasaQueue = require("../tsubasa-music/TsubasaQueue");
+const TsubasaCommandHandler = require("./TsubasaCommandHandler");
+const TsubasaSettingsManager = require("./TsubasaSettingsManager");
+const TsubasaMusicHandler = require("../tsubasa-music/TsubasaMusicHandler");
+const TsubasaEmbedHelper = require("../utils/TsubasaEmbedHelper");
 
-const defaults = require('../../config/bot-config.json');
+const defaults = require("../../config/bot-config.json");
 
 /**
  * Constructor for Tsubasa wrapper on discord.js client
@@ -20,8 +20,8 @@ class Tsubasa extends Discord.Client {
         super()
 
         //TODO custom set color
-        Object.defineProperty(this, 'location', { value: process.cwd() });
-        Object.defineProperty(this, 'color', { value: 0x7E686C });
+        Object.defineProperty(this, "location", { value: process.cwd() });
+        Object.defineProperty(this, "color", { value: 0x7E686C });
 
         //login the bot using the bot token from the config
         this.login(config.token)

@@ -1,6 +1,4 @@
-const got = require('got');
-const fs = require('fs');
-
+const got = require("got");
 
 /**
  *
@@ -31,35 +29,30 @@ async function search(query, page = 1) {
             const data = body.substring(body.indexOf("ytInitialData") + 17);
 
             let jsonString = "";
-            if(data.includes('window["ytInitialPlayerResponse"]')){
+            if(data.includes(`window["ytInitialPlayerResponse"]`)){
                 //parse the string in the style of the window["ytInitialPlayerResposne"] format
                 jsonString = data.substring(0, data.indexOf(`window["ytInitialPlayerResponse"]`) - 6);
             }
-            else if(data.includes('// scraper_data_end')){
+            else if(data.includes("// scraper_data_end")){
                 //parse the string in the style of the // scraper_data_end format
                 jsonString = `{${data.substring(0, data.indexOf(`// scraper_data_end`)-3)}`;
             }
             else {
                 throw "Unexpected data format... check scraper!";
             }
-            fs.writeFileSync('scraperdata.json', jsonString);
-
-            if(jsonString.length === 0){
-                console.log('jsonString is zero');
-            }
 
             //parse the string to get json
             const json = JSON.parse(jsonString);
 
             //get the section lists from the json
-            let sectionLists = json['contents']['twoColumnSearchResultsRenderer']['primaryContents']['sectionListRenderer']['contents'];
+            let sectionLists = json["contents"]["twoColumnSearchResultsRenderer"]["primaryContents"]["sectionListRenderer"]["contents"];
 
             //filter the list and get any that contain item section renderers
-            let filtered = sectionLists.filter(sectionList => sectionList.hasOwnProperty('itemSectionRenderer'))
+            let filtered = sectionLists.filter(sectionList => sectionList.hasOwnProperty("itemSectionRenderer"))
 
             for (let sectionList of filtered) {
 
-                let contents = sectionList['itemSectionRenderer']['contents'];
+                let contents = sectionList["itemSectionRenderer"]["contents"];
 
                 //if the contents are null, continue
                 if (contents == null) {
@@ -72,17 +65,17 @@ async function search(query, page = 1) {
                 //iterate through all the renderers and get the urls from them
                 for (let item of contents) {
 
-                    //if it's not a video renderer, return
-                    if (!item.hasOwnProperty('videoRenderer')) {
+                    //if it"s not a video renderer, return
+                    if (!item.hasOwnProperty("videoRenderer")) {
                         continue;
                     }
 
                     //if the videoRenderer has a video id, continue
-                    if (!item['videoRenderer'].hasOwnProperty('videoId')) {
+                    if (!item["videoRenderer"].hasOwnProperty("videoId")) {
                         continue;
                     }
 
-                    urls.push(`https://www.youtube.com/watch?v=${item['videoRenderer']['videoId']}`);
+                    urls.push(`https://www.youtube.com/watch?v=${item["videoRenderer"]["videoId"]}`);
                 }
 
                 return Promise.all(urls);
