@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const Tsubasa = require("./Tsubasa");
-
+const winston = require("winston");
 //Class for logger that Tsubasa uses
 class TsubasaLogger {
     /**
@@ -9,6 +9,25 @@ class TsubasaLogger {
      */
     constructor(client){
         this.client = client;
+
+        //Logger that logs to local files
+        this.fileLogger = winston.createLogger({
+            level: "info",
+            format: winston.format.json(),
+            transports: [
+                new winston.transports.File({filename: "errors.log", level: "error"}),
+                new winston.transports.File({filename: 'latest.log'}),
+            ],
+        });
+
+        //logger for actually logging console stuff uses chalk for readability and prettiness
+        this.logger = winston.createLogger({
+            level: "debug",
+            format: winston.format.json(),
+            transports: [
+                new winston.transports.Console({format: winston.format.simple()})
+            ],
+        });
     }
 
     /**
@@ -17,7 +36,8 @@ class TsubasaLogger {
      */
     log(message){
         //log the message to the console
-        console.log(chalk.blue(`${chalk.bold("[INFO]")} ${message}`));
+        this.fileLogger.info(`[INFO]${message}`);
+        this.logger.info(chalk.blue(`${chalk.bold("[INFO]")} ${message}`))
     }
 
     /**
@@ -25,7 +45,8 @@ class TsubasaLogger {
     * @param {Error} error the error to log
     */
     error(error){
-        console.error(chalk`{red [ERROR]\n{bold ${error.stack}}}`);
+        this.fileLogger.error(`[ERROR]\n${error.stack}`);
+        this.logger.error(chalk`{red [ERROR]\n{bold ${error.stack}}}`)
     }
 
     /**
@@ -34,7 +55,8 @@ class TsubasaLogger {
      * @param {String} message
      */
     debug(constructor, message){
-        console.log(chalk.blueBright(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`));
+        this.fileLogger.info(`[DEBUG] ${constructor} - ${message}`);
+        this.logger.debug(chalk.blueBright(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`))
     }
 }
 

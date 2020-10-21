@@ -21,11 +21,11 @@ class Tsubasa extends Discord.Client {
 
         //Define custom properties
         Object.defineProperty(this, "location", { value: process.cwd() });
-        Object.defineProperty(this, "color", { value: 0xc375ff });
+        Object.defineProperty(this, "color", { value: "0xc375ff" });
 
         //login the bot using the bot token from the config
         this.login(config.token)
-            .catch(err => console.log(err));
+            .catch(err => this.logger.error(err));
 
         //setup command stuff
         this.commands = new Discord.Collection();
