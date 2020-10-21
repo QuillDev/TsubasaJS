@@ -37,7 +37,7 @@ class TsubasaCommandHandler extends EventEmitter{
                 this.commands.set(command.name, command)
 
                 //get a prettier name for the file
-                this.client.logger.log(chalk.magenta(`[Command Handler] Loaded command ${chalk.bold(command.name)} from file ${chalk.bold(prettyName)}`));
+                this.client.logger.log(chalk`{magenta {bold [${this.constructor.name}]} Loaded command {bold ${command.name}} from {bold ${prettyName}}}`);
             }
 
             //log the amount of commands that we loaded

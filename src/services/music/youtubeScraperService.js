@@ -1,4 +1,5 @@
 const got = require('got');
+const fs = require('fs');
 
 
 /**
@@ -29,12 +30,26 @@ async function search(query, page = 1) {
             //get the ytinitial data
             const data = body.substring(body.indexOf("ytInitialData") + 17);
 
-            //get the json string from the data
-            const jsonString = data.substring(0, data.indexOf(`window["ytInitialPlayerResponse"]`) - 6);
+            let jsonString = "";
+            if(data.includes('window["ytInitialPlayerResponse"]')){
+                //parse the string in the style of the window["ytInitialPlayerResposne"] format
+                jsonString = data.substring(0, data.indexOf(`window["ytInitialPlayerResponse"]`) - 6);
+            }
+            else if(data.includes('// scraper_data_end')){
+                //parse the string in the style of the // scraper_data_end format
+                jsonString = `{${data.substring(0, data.indexOf(`// scraper_data_end`)-3)}`;
+            }
+            else {
+                throw "Unexpected data format... check scraper!";
+            }
+            fs.writeFileSync('scraperdata.json', jsonString);
+
+            if(jsonString.length === 0){
+                console.log('jsonString is zero');
+            }
 
             //parse the string to get json
             const json = JSON.parse(jsonString);
-
 
             //get the section lists from the json
             let sectionLists = json['contents']['twoColumnSearchResultsRenderer']['primaryContents']['sectionListRenderer']['contents'];
