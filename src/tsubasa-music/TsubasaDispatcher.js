@@ -58,7 +58,6 @@ class TsubasaDispatcher {
      */
     async play() {
 
-        //TODO was a || !queue.length here btw
         //if this doesn't exist or if the queue length is 0 then destroy the player
         if(!this.exists){
             return this.destroy();

@@ -7,7 +7,7 @@ class Play extends TsubasaCommand {
     }
 
     get usage(){
-        return `play {search/url}`;
+        return "play {search/url}";
     }
 
     get description(){
@@ -29,7 +29,7 @@ class Play extends TsubasaCommand {
         
         //check if the user is in a voice channel
         if(!msg.member.voice.channelID){
-            return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `You"re not in a voice channel.`));
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", "You're not in a voice channel."));
         }
 
         //if there is no first argument
@@ -49,7 +49,7 @@ class Play extends TsubasaCommand {
 
             //if the result was bad or invalid
             if(result == null){
-                return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `Couldn"t find anything for the query ${query}`));
+                return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `Couldn't find anything for the query ${query}`));
             }
 
             //get data from the result
@@ -70,10 +70,8 @@ class Play extends TsubasaCommand {
                 for(track of tracks) {
                     await this.client.queue.handle(node, track, msg);
                 }
-            }
 
-            //print messages about adding the song to the queue
-            if(isPlaylist){
+                //Send the message saying that we added the playlist
                 await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the playlist **${playlistName}** to the queue!`))
                     .catch(() => null);
             }
@@ -83,7 +81,9 @@ class Play extends TsubasaCommand {
             }
 
             //await to play tracks
-            if(res) await res.play();
+            if(res) {
+                await res.play();
+            }
             return;
         }
 
@@ -104,6 +104,7 @@ class Play extends TsubasaCommand {
         //get the first track
         let track = searchData.tracks.shift();
 
+        //get the dispatcher using the node, track, and message
         const res = await this.client.queue.handle(node, track, msg);
 
         await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the track **${track.info.title}** to the queue!`))

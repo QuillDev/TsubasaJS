@@ -1,9 +1,9 @@
-const TsubasaEvent = require('../tsubasa-abstract/TsubasaEvent');
+const TsubasaEvent = require("../tsubasa-abstract/TsubasaEvent");
 
 
 class Ready extends TsubasaEvent {
     get name() {
-        return 'ready';
+        return "ready";
     }
 
     get once() {

@@ -8,7 +8,7 @@ class TsubasaSettings {
     async setData(prop, value){
 
         //if the property is undefined return
-        if(!this[prop] === undefined) return;
+        if(!this.get(prop) === undefined) return;
 
         //update db?
         const statement = await this.db.prepare(`UPDATE Settings SET prefix = ? WHERE id = ?`, [ value, this.id ]);

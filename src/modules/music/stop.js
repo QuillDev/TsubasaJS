@@ -10,7 +10,7 @@ class Stop extends TsubasaCommand {
     }
 
     get description(){
-        return "Stops the music player from playing."
+        return "Stops the music player from playing.";
     }
 
 

@@ -13,8 +13,8 @@ class TsubasaQueue extends Map {
 
     /**
      * Handle queue for music dispatcher
-     * @param {ShoukakuSocket} node
-     * @param {ShoukakuTrack} track
+     * @param {*} node
+     * @param {*} track
      * @param {Message} msg the message
      * @return {Promise<TsubasaDispatcher>} returns the dispatcher for the audio channel
      */

@@ -2,6 +2,7 @@ const glob = require("glob");
 const EventEmitter = require("events");
 const path = require("path");
 const chalk = require("chalk");
+const config = require("../../config/config.json");
 
 class TsubasaCommandHandler extends EventEmitter{
     constructor(client) {

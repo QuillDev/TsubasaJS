@@ -19,7 +19,7 @@ class Tsubasa extends Discord.Client {
         //inherit default discord.client stuff
         super()
 
-        //TODO custom set color
+        //Define custom properties
         Object.defineProperty(this, "location", { value: process.cwd() });
         Object.defineProperty(this, "color", { value: 0xc375ff });
 
