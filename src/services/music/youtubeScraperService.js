@@ -48,7 +48,7 @@ async function search(query, page = 1) {
             let sectionLists = json["contents"]["twoColumnSearchResultsRenderer"]["primaryContents"]["sectionListRenderer"]["contents"];
 
             //filter the list and get any that contain item section renderers
-            let filtered = sectionLists.filter(sectionList => sectionList.hasOwnProperty("itemSectionRenderer"))
+            let filtered = sectionLists.filter(sectionList => sectionList.hasOwnProperty("itemSectionRenderer"));
 
             for (let sectionList of filtered) {
 

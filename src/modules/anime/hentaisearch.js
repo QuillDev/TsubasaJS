@@ -63,7 +63,7 @@ class HentaiSearch extends TsubasaCommand {
 
         //if the length of the data is 0 return an embed saying there was an error
         if(tagData.length === 0){
-            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No tags found for query ${query}.`)
+            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No tags found for query ${query}.`);
         }
 
         //sort tag data by the amount of posts per each tag
@@ -95,10 +95,10 @@ class HentaiSearch extends TsubasaCommand {
 
         //if the length of the data is 0 return an embed saying there was an error
         if(imageData.length === 0){
-            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No valid images found for query ${query}.`)
+            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No valid images found for query ${query}.`);
         }
 
-        //TODO see if this ever breaks if so we have to check that large_file_url isn't a 404
+        //get a random url
         const url = imageData[Math.floor(Math.random() * imageData.length)]['large_file_url'];
 
         //if the url is invalid send an error message

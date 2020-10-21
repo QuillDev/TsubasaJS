@@ -21,7 +21,7 @@ class Tsubasa extends Discord.Client {
 
         //TODO custom set color
         Object.defineProperty(this, "location", { value: process.cwd() });
-        Object.defineProperty(this, "color", { value: 0x7E686C });
+        Object.defineProperty(this, "color", { value: 0xc375ff });
 
         //login the bot using the bot token from the config
         this.login(config.token)

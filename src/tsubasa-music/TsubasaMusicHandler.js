@@ -17,7 +17,7 @@ class TsubasaMusicHandler extends Shoukaku {
 
             this.on("ready",
                 (name, resumed) =>
-                    client.logger.log(`Lavalink Node: ${name} is now connected`)
+                    client.logger.log(`LavaLink Node: ${name} is now connected`)
             );
             this.on("error",
                 (name, error) =>
@@ -25,11 +25,11 @@ class TsubasaMusicHandler extends Shoukaku {
             );
             this.on("close",
                 (name, code, reason) =>
-                    client.logger.log(`Lavalink Node: ${name} closed with code ${code}`)
+                    client.logger.log(`LavaLink Node: ${name} closed with code ${code}`)
             );
             this.on("disconnected",
                 (name, reason) =>
-                    client.logger.log(`Lavalink Node: ${name} disconnected`)
+                    client.logger.log(`LavaLink Node: ${name} disconnected`)
             );
         }
     }

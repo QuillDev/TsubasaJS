@@ -3,7 +3,7 @@ const TsubasaCommand = require("../../tsubasa-abstract/TsubasaCommand");
 class Queue extends TsubasaCommand {
 
     get name(){
-        return "queue"
+        return "queue";
     }
 
     get usage(){
@@ -46,7 +46,7 @@ class Queue extends TsubasaCommand {
         else if(res.queue.length < 5) {
 
             //start the description
-            let description = `Currently Playing: ${res.current.info.title}\n`
+            let description = `Currently Playing: ${res.current.info.title}\n`;
 
             //iterate through the first five songs and add them to the description
             for(let index = 0; index < res.queue.length; index++){
@@ -58,7 +58,7 @@ class Queue extends TsubasaCommand {
         }
         else {
             //start the description
-            let description = `Currently Playing: ${res.current.info.title}\n`
+            let description = `Currently Playing: ${res.current.info.title}\n`;
 
             //iterate through the first five songs and add them to the description
             for(let index = 0; index < 5; index++){

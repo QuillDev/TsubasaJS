@@ -1,7 +1,7 @@
-const glob = require("glob")
+const glob = require("glob");
 const EventEmitter = require("events");
 const path = require("path");
-const chalk = require("chalk")
+const chalk = require("chalk");
 
 class TsubasaCommandHandler extends EventEmitter{
     constructor(client) {
@@ -34,7 +34,7 @@ class TsubasaCommandHandler extends EventEmitter{
                 const prettyName = file.split("/modules/")[1];
 
                 //add the command
-                this.commands.set(command.name, command)
+                this.commands.set(command.name, command);
 
                 //get a prettier name for the file
                 this.client.logger.log(chalk`{magenta {bold [${this.constructor.name}]} Loaded command {bold ${command.name}} from {bold ${prettyName}}}`);

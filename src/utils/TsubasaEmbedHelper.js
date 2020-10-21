@@ -16,7 +16,7 @@ class TsubasaEmbedHelper {
     createErrorEmbed(title, description = "") {
         const embed = new Discord.MessageEmbed()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
-            .setColor('#f66464')
+            .setColor(this.client.color)
             .setTitle(title)
             .setDescription(description)
             .setTimestamp()
@@ -34,7 +34,7 @@ class TsubasaEmbedHelper {
     createEmbed(title, description = "", imageUrl = ""){
         const embed = new Discord.MessageEmbed()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
-            .setColor('#9047ab')
+            .setColor(this.client.color)
             .setTitle(title)
             .setDescription(description)
             .setImage(imageUrl)

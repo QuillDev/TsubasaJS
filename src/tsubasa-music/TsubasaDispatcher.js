@@ -1,7 +1,7 @@
 class TsubasaDispatcher {
     /**
      * Constructor for a Tsubasa Audio dispatcher
-     * @param {*} options 
+     * @param {*} options
      */
     constructor(options) {
         this.client = options.client;
@@ -59,7 +59,7 @@ class TsubasaDispatcher {
     async play() {
 
         //TODO was a || !queue.length here btw
-        //if this doesn"t exist or if the queue length is 0 then destroy the player
+        //if this doesn't exist or if the queue length is 0 then destroy the player
         if(!this.exists){
             return this.destroy();
         }
@@ -96,7 +96,6 @@ class TsubasaDispatcher {
         //remove this guild from the queueing system
         this.client.queue.delete(this.guild.id);
 
-        //TODO see if I care about loggin these errors.. prob not?
         //send a message to the channel about leaving due to the queue
         this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Music", "Left the channel because the queue has been emptied!"))
             .catch(() => null);

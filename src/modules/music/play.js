@@ -93,7 +93,7 @@ class Play extends TsubasaCommand {
 
         //if there is no search data send an error
         if(!searchData){
-            return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `There was an issue when finding songs for your query ${query}, please try again!`))
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `There was an issue when finding songs for your query ${query}, please try again!`));
         }
 
         //if the tracks came back empty
