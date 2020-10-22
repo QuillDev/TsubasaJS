@@ -1,5 +1,4 @@
 const TsubasaCommand = require("../../tsubasa/TsubasaCommandHandler");
-const embedhelper = require("../../utils/TsubasaEmbedHelper");
 
 class Help extends TsubasaCommand {
     get name(){

@@ -76,11 +76,6 @@ class TsubasaCommandHandler extends EventEmitter{
             //set the command to the one we found
             command  = this.commands.get(command);
 
-            //check if we have permissions to execute the command
-            if (command.permissions && !this.permissions(msg, command.permissions)) {
-                await msg.channel.send(`You don"t have permission to execute this command.`);
-                return;
-            }
             await command.run(msg, args, config);
         } catch (error) {
             this.emit("error", error);
