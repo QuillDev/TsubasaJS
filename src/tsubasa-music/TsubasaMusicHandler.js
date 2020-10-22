@@ -14,6 +14,7 @@ class TsubasaMusicHandler extends Shoukaku {
         constructor(client)
         {
             super(client, LavalinkServers, Options);
+            this.client = client;
 
             this.on("ready",
                 (name, resumed) =>

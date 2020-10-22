@@ -13,7 +13,7 @@ async function search(query, page = 1) {
 
     return await got.get(url)
         .then(res => res.body)
-        .then(function (body) {
+        .then(async function (body) {
 
             //if body is null, return
             if (!body) {
@@ -47,8 +47,10 @@ async function search(query, page = 1) {
             //get the section lists from the json
             let sectionLists = json["contents"]["twoColumnSearchResultsRenderer"]["primaryContents"]["sectionListRenderer"]["contents"];
 
+
             //filter the list and get any that contain item section renderers
             let filtered = sectionLists.filter(sectionList => sectionList.hasOwnProperty("itemSectionRenderer"));
+
 
             for (let sectionList of filtered) {
 
@@ -58,6 +60,7 @@ async function search(query, page = 1) {
                 if (contents == null) {
                     continue;
                 }
+
 
                 //get the url
                 let urls = [];
@@ -75,10 +78,13 @@ async function search(query, page = 1) {
                         continue;
                     }
 
+
                     urls.push(`https://www.youtube.com/watch?v=${item["videoRenderer"]["videoId"]}`);
+
+
                 }
 
-                return Promise.all(urls);
+                return await Promise.all(urls);
             }
         });
 }

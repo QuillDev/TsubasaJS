@@ -1,3 +1,6 @@
+const scraper = require("../services/music/youtubeReccomendedScraper");
+
+//TODO I think this needs some refactoring, exporting some functions might be nice
 class TsubasaDispatcher {
     /**
      * Constructor for a Tsubasa Audio dispatcher
@@ -9,6 +12,7 @@ class TsubasaDispatcher {
         this.text = options.text;
         this.player = options.player;
         this.queue = [];
+        this.radio = false;
         this.current = null;
 
         //on the player start event send messages to the text channel we"re bound to
@@ -18,7 +22,35 @@ class TsubasaDispatcher {
         });
 
         //when a song ends try to play the next track, if that fails then destroy it.
-        this.player.on("end", () => {
+        this.player.on("end", async () => {
+
+            //TODO Move this somewhere else?
+            if(this.radio){
+                const node = this.client.musicHandler.getNode();
+                const recommendedId = await scraper.getReccomendedVideoId(this.current.info.uri);
+                const response = await node.rest.resolve(`https://www.youtube.com/watch?v=${recommendedId}`);
+
+
+                //if there was an error with the next command then send a message about it
+                if(!response ||!response["tracks"]){
+                    this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Radio", "An error occured when loading the next track, please try a manual restart!"));
+                    this.destroy();
+                    return;
+                }
+
+                //get the next track to play
+                const next = response["tracks"].shift();
+
+                //if there is an issue with the next track say it and destroy the radio.
+                if(!next){
+                    this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Radio", "Couldn't automatically load the next track. Destroying radio!"));
+                    this.destroy();
+                    return;
+                }
+
+                this.queue.push(next);
+            }
+
             this.play()
                 .catch(err => {
                     this.queue.length = 0;
@@ -56,7 +88,7 @@ class TsubasaDispatcher {
      * Play the next song in the queue on the player
      * @returns {Promise<*>}
      */
-    async play() {
+    async play(track = null) {
 
         //if this doesn't exist or if the queue length is 0 then destroy the player
         if(!this.exists){

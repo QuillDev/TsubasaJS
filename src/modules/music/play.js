@@ -89,6 +89,8 @@ class Play extends TsubasaCommand {
 
         //search youtube with the given query
         const scraperResult = await ytscraper.searchAndGetFirst(query);
+
+        //get search data as a response
         const searchData = await node.rest.resolve(scraperResult);
 
         //if there is no search data send an error
@@ -110,7 +112,9 @@ class Play extends TsubasaCommand {
         await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the track **${track.info.title}** to the queue!`))
             .catch(() => null);
 
-        if(res) await res.play();
+        if(res){
+            await res.play();
+        }
     }
 }
 
