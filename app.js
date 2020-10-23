@@ -5,7 +5,7 @@ const {Tsubasa} = require('./src/tsubasa/Tsubasa');
 require('dotenv').config();
 
 
-let live = true;
+let live = false;
 
 let config = {
     token: live ? process.env.DISCORD_TOKEN_LIVE : process.env.DISCORD_TOKEN_TEST
