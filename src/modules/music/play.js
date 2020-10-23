@@ -90,6 +90,9 @@ class Play extends TsubasaCommand {
         //search youtube with the given query
         const scraperResult = await ytscraper.searchAndGetFirst(query);
 
+        if(!scraperResult){
+            return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `There was an issue when finding songs for your query ${query}, please try again!`));
+        }
         //get search data as a response
         const searchData = await node.rest.resolve(scraperResult);
 
