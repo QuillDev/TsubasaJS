@@ -4,7 +4,7 @@ is currently limited but much more is planned for the future.
 
 ## Installation Instructions
 
-## [Tsubasa Help Site](http://quilldev.tech/tsubasa)
+## [Tsubasa Help Site](https://quilldev.tech/tsubasa)
 ### Downloading the bot
 ```text
 git clone https://github.com/QuillDev/TsubasaJS.git
