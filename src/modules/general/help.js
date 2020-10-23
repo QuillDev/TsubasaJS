@@ -17,7 +17,7 @@ class Help extends TsubasaCommand {
         return await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Help",
             `
             Documentation on all commands can be found here!
-            http://quilldev.tech/tsubasa
+            https://quilldev.tech/tsubasa
             `));
     }
 }

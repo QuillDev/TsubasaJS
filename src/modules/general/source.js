@@ -18,7 +18,7 @@ class Source extends TsubasaCommand {
             this.client.embedHelper.createEmbed("Tsubasa - Source",
                 `
                 You can view Tsubasa's Source here!
-                http://quilldev.tech/tsubasa/helper/source
+                https://quilldev.tech/tsubasa/helper/source
                 `
             )
         );

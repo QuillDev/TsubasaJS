@@ -16,7 +16,7 @@ class Invite extends TsubasaCommand {
     async run(msg){
         return await msg.channel.send(
             new this.client.discord.MessageEmbed()
-                .setAuthor("Invite Tsubasa", this.client.user.displayAvatarURL(), "http://tsubasa.quilldev.tech")
+                .setAuthor("Invite Tsubasa", this.client.user.displayAvatarURL(), "https://tsubasa.quilldev.tech")
                 .setColor(this.client.color)
         );
     }
