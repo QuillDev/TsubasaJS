@@ -4,7 +4,8 @@
   "description": "A Discord bot written in JS using discord.js",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "snyk test"
   },
   "keywords": [],
   "author": "",
@@ -24,5 +25,8 @@
     "sqlite": "^4.0.15",
     "sqlite3": "^5.0.0",
     "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "snyk": "^1.419.1"
   }
 }

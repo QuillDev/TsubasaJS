@@ -15,8 +15,8 @@ class TsubasaLogger {
             level: "info",
             format: winston.format.json(),
             transports: [
-                new winston.transports.File({filename: "errors.log", level: "error"}),
-                new winston.transports.File({filename: 'latest.log'}),
+                new winston.transports.File({filename: "./logs/errors.log", level: "error"}),
+                new winston.transports.File({filename: './logs/latest.log'}),
             ],
         });
 
@@ -56,7 +56,7 @@ class TsubasaLogger {
      */
     debug(constructor, message){
         this.fileLogger.info(`[DEBUG] ${constructor} - ${message}`);
-        this.logger.debug(chalk.blueBright(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`))
+        this.logger.debug(chalk.blueBright(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`));
     }
 }
 
