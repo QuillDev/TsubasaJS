@@ -16,7 +16,7 @@ class TsubasaEmbedHelper {
     createErrorEmbed(title, description = "") {
         const embed = new Discord.MessageEmbed()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
-            .setColor(this.client.color)
+            .setColor("#f2433a")
             .setTitle(title)
             .setDescription(description)
             .setTimestamp()

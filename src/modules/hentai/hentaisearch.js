@@ -6,6 +6,9 @@ const TsubasaCommand  = require('../../tsubasa-abstract/TsubasaCommand')
 const base = "https://danbooru.donmai.us";
 
 class HentaiSearch extends TsubasaCommand {
+    //set this command to be NSFW
+    nsfw = true;
+
     get name(){
         return 'hentai';
     }
@@ -28,10 +31,6 @@ class HentaiSearch extends TsubasaCommand {
      * @param {String[]} args
      */
     async hentaiSearch(message, args) {
-        //if the channel is not nsfw
-        if(!message.channel.nsfw){
-            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", "The channel must be set to NSFW to use NSFW commands! To do this look here\nhttps://support.discord.com/hc/en-us/articles/115000084051-NSFW-Channels-and-Content")
-        }
 
         //Create the query to search tags for
         const query = args.join(" ");

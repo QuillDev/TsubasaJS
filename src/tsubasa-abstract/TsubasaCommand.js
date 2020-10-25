@@ -6,6 +6,7 @@ class TsubasaCommand {
      */
     constructor(client) {
         this.client = client;
+        this.nsfw = false;
         if (this.constructor === TsubasaCommand) throw new TypeError("Abstract class \"TsubasaCommand\" cannot be instantiated directly.");
         else if (this.name === undefined) throw new TypeError("Classes extending TsubasaCommand must have a getter \"name\"");
         else if (this.usage === undefined) throw new TypeError("Classes extending TsubasaCommand must have a getter \"usage\"");

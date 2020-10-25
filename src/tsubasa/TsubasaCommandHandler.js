@@ -76,6 +76,13 @@ class TsubasaCommandHandler extends EventEmitter{
             //set the command to the one we found
             command  = this.commands.get(command);
 
+            //check if the command is nsfw and not in an nsfw channel
+            if(command.nsfw){
+                if(!msg.channel.nsfw){
+                    return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - NSFW", "The channel must be set to NSFW to use NSFW commands! To do this look here\nhttps://support.discord.com/hc/en-us/articles/115000084051-NSFW-Channels-and-Content"))
+                }
+            }
+
             await command.run(msg, args, config);
         } catch (error) {
             this.emit("error", error);
