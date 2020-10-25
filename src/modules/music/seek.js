@@ -13,7 +13,12 @@ class Seek extends TsubasaCommand {
         return "Seeks to a certian point in the song.";
     }
 
-
+    /**
+     * Seek to a given position if possible
+     * @param msg the message that was sent
+     * @param args arguments in this case should be position
+     * @returns {Promise<*>}
+     */
     async run(msg, args) {
 
         //if there are no arguments
