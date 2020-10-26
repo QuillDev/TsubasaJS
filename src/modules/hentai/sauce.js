@@ -69,7 +69,6 @@ class Sauce extends TsubasaCommand {
             url = `https://www.google.com/search?&q=${encodeURIComponent(url)}`;
         }
 
-        console.log(url);
         //create the embed
         const embed = new this.client.discord.MessageEmbed()
             .setThumbnail(proxyUrl)
