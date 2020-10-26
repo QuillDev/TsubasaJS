@@ -135,5 +135,4 @@ async function scrapePopular(query) {
 module.exports = {
     getTop: getTop,
     getRandom: getRandom,
-    scrapePopular: scrapePopular
 }

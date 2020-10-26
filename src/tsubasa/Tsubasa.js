@@ -20,8 +20,12 @@ class Tsubasa extends Discord.Client {
         super()
 
         //Define custom properties
-        Object.defineProperty(this, "location", { value: process.cwd() });
-        Object.defineProperty(this, "color", { value: "0xc375ff" });
+        Object.defineProperty(this, "location", {
+            value: process.cwd()
+        });
+        Object.defineProperty(this, "color", {
+            value: "0xc375ff"
+        });
 
         //login the bot using the bot token from the config
         this.login(config.token)
@@ -43,7 +47,7 @@ class Tsubasa extends Discord.Client {
         new TsubasaCommandHandler(this).build().catch(err => this.logger.error(err));
     }
 
-    get getDefaultConfig(){
+    get getDefaultConfig() {
         return defaults;
     }
 }
