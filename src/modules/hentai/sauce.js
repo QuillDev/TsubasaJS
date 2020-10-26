@@ -19,18 +19,18 @@ class Sauce extends TsubasaCommand {
     }
 
     async run(msg, args){
+
+        //create var for proxyurl
         let proxyUrl;
 
-
+        //If there's actually attachments then use those
         if(msg.attachments.size > 0){
             proxyUrl = msg.attachments.first().proxyURL;
         }
         //if the length of the embed is zero
         else if(msg.embeds.length === 0){
-
             //if args0 exists
             if(args[0]){
-
                 //check if it ends with jpg or png for seeing if we should use it
                 if(args[0].endsWith(".jpg") || args[0].endsWith(".png")){
                     proxyUrl = args[0];
@@ -38,12 +38,16 @@ class Sauce extends TsubasaCommand {
             }
         }
         else {
-            //get the proxy url from the message
-            proxyUrl = msg.embeds[0].thumbnail.proxyURL;
+            const embedUrl = msg.embeds[0].thumbnail.url;
+
+            if(embedUrl.includes("?")){
+                //get the proxy url from the message
+                proxyUrl = embedUrl.substring(0, embedUrl.indexOf("?"));
+            }
+            else {
+                proxyUrl = msg.embeds[0].thumbnail.proxyURL;
+            }
         }
-
-
-
         //if there was no proxyUrl
         if(!proxyUrl){
             return msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Sauce", "Couldn't find the attachment you linked."));
