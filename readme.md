@@ -15,9 +15,15 @@ npm start
 
 ### Setting up the config
 #### File: .env
-```text
+```dotenv
+#Control Stuff
 NODE_ENV=PRODUCTION
+
+#Discord Stuff
 DISCORD_TOKEN_LIVE=THIS_IS_WHERE_YOUR_REALLY_LONG_TOKEN_GOES
 DISCORD_TOKEN_TEST=THIS_IS_WHERE_YOUR_REALLY_LONG_TOKEN_GOES
 DISCORD_PREFIX=t>
+
+#Key for SauceNao
+SAUCE_KEY=SAUCE_NAO_KEY_GOES_HERE
 ```
