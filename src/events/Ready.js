@@ -14,19 +14,21 @@ class Ready extends TsubasaEvent {
 
         //get the guilds cache
         const guilds = this.client.guilds.cache;
+        let memberCount = 0;
         //Log the names and ids of the guilds we're in
         guilds.map(function(guild){
-            this.client.logger.debug(this.client.user.username, `Name: ${guild.name} |  ID: ${guild.id}`);
+            this.client.logger.debug(this.client.user.username, `Name: ${guild.name} |  ID: ${guild.id} | Users: ${guild.memberCount}`);
+            memberCount += guild.memberCount;
         }, this);
 
         //Log the amount of guild's we're in
-        this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${guilds.size} guild(s) with ${this.client.users.cache.size} user(s)`);
+        this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${guilds.size} guild(s) with ${memberCount} user(s)`);
 
         //set the presence of the clinet
         await this.client.user.setPresence({
             status: "online",
             activity: {
-                name: `Serving ${guilds.size} guilds!`
+                name: `Serving ${memberCount} users!`
             }
         });
     }
