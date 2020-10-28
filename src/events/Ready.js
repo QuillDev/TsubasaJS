@@ -24,7 +24,8 @@ class Ready extends TsubasaEvent {
         //Log the amount of guild's we're in
         this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${guilds.size} guild(s) with ${memberCount} user(s)`);
 
-        //set the presence of the clinet
+        console.log(this.client.users.cache.size);
+        //set the presence of the client
         await this.client.user.setPresence({
             status: "online",
             activity: {

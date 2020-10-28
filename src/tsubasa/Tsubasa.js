@@ -17,7 +17,7 @@ class Tsubasa extends Discord.Client {
     constructor(config) {
 
         //inherit default discord.client stuff
-        super()
+        super(config.options)
 
         //Define custom properties
         Object.defineProperty(this, "location", {
@@ -42,7 +42,7 @@ class Tsubasa extends Discord.Client {
         this.embedHelper = new TsubasaEmbedHelper(this);
         this.discord = Discord;
 
-        //setup handlers for the client
+        //build the handlers
         new TsubasaEventHandler(this).build();
         new TsubasaCommandHandler(this).build().catch(err => this.logger.error(err));
     }
