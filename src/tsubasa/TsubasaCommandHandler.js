@@ -83,6 +83,7 @@ class TsubasaCommandHandler extends EventEmitter{
                 }
             }
 
+            this.client.logger.logCommand(this.constructor.name, command, msg.channel.guild);
             await command.run(msg, args, config);
         } catch (error) {
             this.emit("error", error);

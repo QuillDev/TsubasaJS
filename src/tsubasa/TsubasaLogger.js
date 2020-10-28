@@ -58,6 +58,12 @@ class TsubasaLogger {
         this.fileLogger.info(`[DEBUG] ${constructor} - ${message}`);
         this.logger.debug(chalk.blueBright(`${chalk.bold(`[DEBUG] [${constructor}]`)} - ${message}`));
     }
+
+    logCommand(constructor, command, guild){
+        //this.constructor.name, `Executed command ${command.name} in guild Name: ${msg.channel.guild.name} | ID: ${msg.channel.guild.id}`)
+        this.fileLogger.info(`[COMMAND] ${constructor} - Executed command ${command.name}`);
+        this.logger.debug(chalk`{blue [${constructor}] [COMMAND] Executed command {bold ${command.name}} in Guild [ Name: {bold ${guild.name}} | ID: {bold ${guild.id}}} ]`);
+    }
 }
 
 //export the logger
