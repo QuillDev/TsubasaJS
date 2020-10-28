@@ -17,9 +17,6 @@ async function getSauceData(url) {
     const sauceData = await got.get(`https://saucenao.com/search.php?db=999&url=${url}&output_type=2&api_key=${process.env.SAUCE_KEY}`)
         .then(res => JSON.parse(res.body))
         .catch(function(err){
-            if(err.response.statusCode === 429){
-                console.log("Rate limit exceeded please wait!")
-            }
             return null;
         });
 

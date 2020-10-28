@@ -4,6 +4,7 @@ const {Tsubasa} = require('./src/tsubasa/Tsubasa');
 //setup dotenv for local vars
 require('dotenv').config();
 
+//TODO Change this to use JSON maybe?
 let config = {
     //determine which token to use
     token: (process.env.NODE_ENV === "PRODUCTION") ? process.env.DISCORD_TOKEN_LIVE : process.env.DISCORD_TOKEN_TEST,
