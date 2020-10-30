@@ -1,5 +1,6 @@
 const TsubasaCommand = require("../../tsubasa-abstract/TsubasaCommand");
 const ytscraper = require("../../services/music/youtubeScraperService");
+const spotifyScraper = require("../../services/music/spotifyTranslatorService");
 
 class Play extends TsubasaCommand {
     get name() {
@@ -45,6 +46,45 @@ class Play extends TsubasaCommand {
 
         //if the query is a valid url
         if(this._checkURL(query)){
+
+            //if it's a spotify url translate the playlist to a spotify playlist
+            if(query.includes("spotify.com")){
+
+                //try to get the url list from the spotify scraper
+                const urls = await spotifyScraper.getFromSpotifyPlaylist(query);
+
+                let self = this;
+
+                //iterate through urls promise array
+                for (const promise of urls) {
+                    promise.then(async function(res) {
+                        //if res is a bust, return
+                        if(!res){
+                            return;
+                        }
+
+                        //Push the result to the results array
+                        const trackRes = await node.rest.resolve(res);
+
+                        //get data from the result
+                        const {type, tracks, playlistName} = trackRes;
+
+                        //get the first track from the tracks list
+                        let track = tracks.shift();
+
+                        //handle the track in the client queue?
+                        const queuedRes = await self.client.queue.handle(node, track, msg);
+
+                        if(queuedRes){
+                            await queuedRes.play();
+                        }
+                    }).catch(err => console.error(err));
+                }
+            }
+            else {}
+
+
+
             const result = await node.rest.resolve(query);
 
             //if the result was bad or invalid
