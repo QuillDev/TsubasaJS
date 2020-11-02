@@ -53,7 +53,11 @@ class Play extends TsubasaCommand {
                 //try to get the url list from the spotify scraper
                 const urls = await spotifyScraper.getFromSpotifyPlaylist(query);
 
-                let self = this;
+                //make the self var for using locally
+                const self = this;
+
+                //create an array for tracks to be stored in
+                const tracks = [];
 
                 //iterate through urls promise array
                 for (const promise of urls) {
@@ -67,7 +71,7 @@ class Play extends TsubasaCommand {
                         const trackRes = await node.rest.resolve(res);
 
                         //get data from the result
-                        const {type, tracks, playlistName} = trackRes;
+                        const {tracks} = trackRes;
 
                         //get the first track from the tracks list
                         let track = tracks.shift();
@@ -75,56 +79,62 @@ class Play extends TsubasaCommand {
                         //handle the track in the client queue?
                         const queuedRes = await self.client.queue.handle(node, track, msg);
 
+                        //if there was a queued res, start playing it.
                         if(queuedRes){
                             await queuedRes.play();
                         }
                     }).catch(err => console.error(err));
                 }
-            }
-            else {}
+
+                //Await for all of the tracks to resolve
+                await Promise.all(tracks);
 
 
-
-            const result = await node.rest.resolve(query);
-
-            //if the result was bad or invalid
-            if(result == null){
-                return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `Couldn't find anything for the query ${query}`));
-            }
-
-            //get data from the result
-            const {type, tracks, playlistName} = result;
-
-            //get the first track from the tracks list
-            let track = tracks.shift();
-
-            //see if it"s a playlist
-            const isPlaylist = type === "PLAYLIST";
-
-            //handle the tracks and get the response
-            const res = await this.client.queue.handle(node, track, msg);
-
-            //if it"s a playlist
-            if(isPlaylist){
-                //Add all tracks to queue if it"s a playlist
-                for(track of tracks) {
-                    await this.client.queue.handle(node, track, msg);
-                }
-
-                //Send the message saying that we added the playlist
-                await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the playlist **${playlistName}** to the queue!`))
-                    .catch(() => null);
             }
             else {
-                await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the song **${track.info.title}** to the queue!`))
-                    .catch(() => null);
-            }
 
-            //await to play tracks
-            if(res) {
-                await res.play();
+                //get a result for the query
+                const result = await node.rest.resolve(query);
+
+                //if the result was bad or invalid
+                if(result == null){
+                    return await msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Play", `Couldn't find anything for the query ${query}`));
+                }
+
+                //get data from the result
+                const {type, tracks, playlistName} = result;
+
+                //get the first track from the tracks list
+                let track = tracks.shift();
+
+                //see if it"s a playlist
+                const isPlaylist = type === "PLAYLIST";
+
+                //handle the tracks and get the response
+                const res = await this.client.queue.handle(node, track, msg);
+
+                //if it"s a playlist
+                if(isPlaylist){
+                    //Add all tracks to queue if it"s a playlist
+                    for(track of tracks) {
+                        await this.client.queue.handle(node, track, msg);
+                    }
+
+                    //Send the message saying that we added the playlist
+                    await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the playlist **${playlistName}** to the queue!`))
+                        .catch(() => null);
+                }
+                else {
+                    await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Play", `Added the song **${track.info.title}** to the queue!`))
+                        .catch(() => null);
+                }
+
+                //await to play tracks
+                if(res) {
+                    await res.play();
+                }
+                return;
             }
-            return;
         }
 
         //search youtube with the given query

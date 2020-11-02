@@ -4,6 +4,8 @@ const {Tsubasa} = require('./src/tsubasa/Tsubasa');
 //setup dotenv for local vars
 require('dotenv').config();
 
+//TODO Setup all logging of errors to print the constructor they're from!
+//TODO Clean up the play.js file and make it a bit more extendable?
 //TODO Change this to use JSON maybe?
 let config = {
     //determine which token to use
