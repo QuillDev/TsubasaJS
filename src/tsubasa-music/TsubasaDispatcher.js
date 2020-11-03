@@ -55,7 +55,7 @@ class TsubasaDispatcher {
                 .catch(err => {
                     this.queue.length = 0;
                     this.destroy();
-                    this.client.logger.error(err);
+                    this.client.logger.error(this.constructor.name, err);
                })
         });
 
@@ -66,7 +66,7 @@ class TsubasaDispatcher {
             this.player.on(playerEvent, data => {
                 //if the data is an error or an object log it
                 if(data instanceof Error || data instanceof Object) {
-                    this.client.logger.error(data);
+                    this.client.logger.error(this.constructor.name, data);
                 }
 
                 //set the queue length to 0 and destroy it

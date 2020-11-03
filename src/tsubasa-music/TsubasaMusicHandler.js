@@ -21,15 +21,15 @@ class TsubasaMusicHandler extends Shoukaku {
                     client.logger.log(`LavaLink Node: ${name} is now connected`)
             );
             this.on("error",
-                (name, error) =>
-                    client.logger.error(error)
+                (name, err) =>
+                    client.logger.error(this.constructor.name, err)
             );
             this.on("close",
-                (name, code, reason) =>
+                (name, code) =>
                     client.logger.log(`LavaLink Node: ${name} closed with code ${code}`)
             );
             this.on("disconnected",
-                (name, reason) =>
+                (name) =>
                     client.logger.log(`LavaLink Node: ${name} disconnected`)
             );
         }

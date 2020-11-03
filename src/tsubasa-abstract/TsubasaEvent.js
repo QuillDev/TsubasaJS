@@ -11,7 +11,7 @@ class TsubasaEvent extends EventEmitter {
             if (this.run.constructor.name !== "AsyncFunction")
                 throw new TypeError("Classes extending TsubasaEvent must implement \"run\" as async function");
         } else throw new TypeError("Classes extending TsubasaEvent must implement an async function \"run\"");
-        this.on("error", (error) => client.logger.error(error));
+        this.on("error", (err) => client.logger.error(this.constructor.name, err));
     }
 
     exec(...args) {

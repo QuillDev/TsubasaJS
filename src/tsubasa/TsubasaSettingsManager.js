@@ -23,9 +23,9 @@ class TsubasaSettingsManager {
                         this.db = db;
                         client.logger.debug(this.constructor.name, `SQLITE Database "Settings" created`);
                     })
-                    .catch(error => client.logger.error(error));
+                    .catch(err => client.logger.error(this.constructor.name, err));
             })
-            .catch(error => client.logger.error(error));
+            .catch(err => client.logger.error(this.constructor.name, err));
     }
 
     async createDefaults(guildID) {

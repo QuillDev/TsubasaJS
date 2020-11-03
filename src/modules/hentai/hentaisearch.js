@@ -23,12 +23,12 @@ class HentaiSearch extends TsubasaCommand {
     async run(message, args){
         let response = await this.hentaiSearch(message, args);
         message.channel.send(response)
-            .catch(err => this.client.logger.error(err));
+            .catch(err => this.client.logger.error(this.constructor.name, err));
     }
     /**
      * Returns an embed with hentai from danbooru
-     * @param {"discord.js", Message}
-     * @param {String[]} args
+     * @param {Message} message - the discord message object
+     * @param {String[]} args - the argument array
      */
     async hentaiSearch(message, args) {
 

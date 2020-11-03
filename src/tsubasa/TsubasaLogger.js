@@ -41,12 +41,13 @@ class TsubasaLogger {
     }
 
     /**
-    * Log stack traces and error messages
-    * @param {Error} error the error to log
-    */
-    error(error){
-        this.fileLogger.error(`[ERROR]\n${error.stack}`);
-        this.logger.error(chalk`{red [ERROR]\n{bold ${error.stack}}}`)
+     * Logs an error message
+     * @param constructor the constructor the erorr is from
+     * @param error the error to be logged
+     */
+    error(constructor, error){
+        this.fileLogger.error(`[ERROR]\n${error}`);
+        this.logger.error(chalk`{red [ERROR] [${constructor}]\n{bold ${error}}}`)
     }
 
     /**

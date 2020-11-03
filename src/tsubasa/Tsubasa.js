@@ -29,7 +29,7 @@ class Tsubasa extends Discord.Client {
 
         //login the bot using the bot token from the config
         this.login(config.token)
-            .catch(err => this.logger.error(err));
+            .catch(err => this.logger.error(this.constructor.name, err));
 
         //setup command stuff
         this.commands = new Discord.Collection();
@@ -44,7 +44,7 @@ class Tsubasa extends Discord.Client {
 
         //build the handlers
         new TsubasaEventHandler(this).build();
-        new TsubasaCommandHandler(this).build().catch(err => this.logger.error(err));
+        new TsubasaCommandHandler(this).build().catch(err => this.logger.error(this.constructor.name, err));
     }
 
     get getDefaultConfig() {

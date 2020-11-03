@@ -10,7 +10,7 @@ class TsubasaCommandHandler extends EventEmitter{
         this.client = client;
         this.commands = new Map();
         this.built = false;
-        this.on("error", error => client.logger.error(error));
+        this.on("error", err => client.logger.error(this.constructor.name, err));
     }
 
     async build(){

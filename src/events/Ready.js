@@ -1,4 +1,5 @@
 const TsubasaEvent = require("../tsubasa-abstract/TsubasaEvent");
+const got = require("got");
 
 
 class Ready extends TsubasaEvent {
@@ -15,6 +16,7 @@ class Ready extends TsubasaEvent {
         //get the guilds cache
         const guilds = this.client.guilds.cache;
         const users = this.client.users.cache;
+
         //Log the names and ids of the guilds we're in
         guilds.map(function(guild){
             this.client.logger.debug(this.client.user.username, `Name: ${guild.name} |  ID: ${guild.id} | Users: ${guild.memberCount}`);
@@ -31,6 +33,22 @@ class Ready extends TsubasaEvent {
                 type: "LISTENING"
             }
         });
+
+        await this.updateDBGGInfo()
+    }
+
+    async updateDBGGInfo(error){
+        const {body} = await got.post(`https://discord.bots.gg/api/v1/bots/753764233484828703/stats`, {
+            headers: {
+                "Authorization": process.env.DBGG_KEY,
+            },
+            json: {
+                guildCount: this.client.guilds,
+            }
+        })
+            .catch(err => this.client.logger.error(this.constructor.name, err))
+
+        console.log(body);
     }
 }
 module.exports = Ready;
