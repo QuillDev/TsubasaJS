@@ -49,7 +49,7 @@ class Ready extends TsubasaEvent {
         })
             .catch(err => this.client.logger.error(this.constructor.name, err));
 
-        this.client.logger.log(`Posted data ${body}`);
+        this.client.logger.debug(this.constructor.name, `Posted data ${body}`);
     }
 }
 module.exports = Ready;
