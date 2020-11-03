@@ -33,22 +33,23 @@ class Ready extends TsubasaEvent {
                 type: "LISTENING"
             }
         });
-
-        await this.updateDBGGInfo()
+        await this.updateDBGGInfo();
     }
 
-    async updateDBGGInfo(error){
-        const {body} = await got.post(`https://discord.bots.gg/api/v1/bots/753764233484828703/stats`, {
+    async updateDBGGInfo(){
+
+        //post our currnet guild count to discord.bots
+        const {body} = await got.post(`https://discord.bots.gg/api/v1/bots/${this.client.user.id}/stats`, {
             headers: {
                 "Authorization": process.env.DBGG_KEY,
             },
             json: {
-                guildCount: this.client.guilds,
+                guildCount: this.client.guilds.cache.size,
             }
         })
-            .catch(err => this.client.logger.error(this.constructor.name, err))
+            .catch(err => this.client.logger.error(this.constructor.name, err));
 
-        console.log(body);
+        this.client.logger.log(`Posted data ${body}`);
     }
 }
 module.exports = Ready;
