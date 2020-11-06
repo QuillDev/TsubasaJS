@@ -35,38 +35,48 @@ class HentaiSearch extends TsubasaCommand {
         //Create the query to search tags for
         const query = args.join(" ");
 
-        //get tags from danbooru for the given query
-        const tagData = await got.get(`${base}/tags.json?search[name_matches]=${query}*&search[order]=count`)
-            .then(function(res) {
+        let tagName = "";
 
-                //if res is null return null
-                if(res == null){
-                    return null;
-                }
+        //if no query was given, make this the search url
+        if(!query){
 
-                //get the body of the response
-                const body = res.body;
-
-                //if the body length is 0 return null
-                if(body.length === 0) {
-                    return null;
-                }
-
-                return JSON.parse(body);
-            });
-
-        //check if the tag data came back as null
-        if(tagData === null){
-            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `An error occurred while getting tags for query ${query}.`);
         }
+        else {
+            //get tags from danbooru for the given query
+            const tagData = await got.get(`${base}/tags.json?search[name_matches]=${query}*&search[order]=count`)
+                .then(function(res) {
 
-        //if the length of the data is 0 return an embed saying there was an error
-        if(tagData.length === 0){
-            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No tags found for query ${query}.`);
+                    //if res is null return null
+                    if(res == null){
+                        return null;
+                    }
+
+                    //get the body of the response
+                    const body = res.body;
+
+                    //if the body length is 0 return null
+                    if(body.length === 0) {
+                        return null;
+                    }
+
+                    return JSON.parse(body);
+                });
+
+            //check if the tag data came back as null
+            if(tagData === null){
+                return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `An error occurred while getting tags for query ${query}.`);
+            }
+
+            //if the length of the data is 0 return an embed saying there was an error
+            if(tagData.length === 0){
+                return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No tags found for query ${query}.`);
+            }
+
+            tagName = tagData[0].name;
         }
 
         //Request for actual images from the tags we found.
-        const imageData = await got.get(`${base}/posts.json?tags= -rating:safe -rating:questionable ${tagData[0].name} &random=true`)
+        const imageData = await got.get(`${base}/posts.json?tags= -rating:safe -rating:questionable ${tagName} &random=true`)
             .then(function(res) {
                 //if res is null return null
                 if(res == null){
