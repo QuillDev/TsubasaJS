@@ -1,8 +1,10 @@
 //Load Tsubasa wrapper for discord.js Client
 const {Tsubasa} = require('./src/tsubasa/Tsubasa');
-
 //setup dotenv for local vars
 require('dotenv').config();
+
+//get the version
+const version = process.env.npm_package_version;
 
 //TODO Setup all logging of errors to print the constructor they're from!
 //TODO Clean up the play.js file and make it a bit more extendable?
@@ -14,8 +16,13 @@ let config = {
     //client options to use
     options: {
         shardCount: 1,
-    }
+    },
+
+    //the version of the bot we're using
+    version: version,
 }
 
+
+console.log(process.env.VERSION)
 //create the client using the config
 new Tsubasa(config);

@@ -1,6 +1,6 @@
 {
   "name": "tsubasajs",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A Discord bot written in JS using discord.js",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "jsdom": "^16.4.0",
     "node-webvtt": "^1.9.3",
     "path": "^0.12.7",
+    "root-require": "^0.3.1",
     "shoukaku": "^1.5.2",
     "sqlite": "^4.0.15",
     "sqlite3": "^5.0.0",

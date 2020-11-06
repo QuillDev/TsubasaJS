@@ -31,6 +31,9 @@ class Tsubasa extends Discord.Client {
         this.login(config.token)
             .catch(err => this.logger.error(this.constructor.name, err));
 
+        //get the version
+        this.version = config.version;
+
         //setup command stuff
         this.commands = new Discord.Collection();
 

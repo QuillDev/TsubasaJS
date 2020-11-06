@@ -1,3 +1,8 @@
+# v1.1.2
+## Version Command Final
+
+Final Changes and patches to version command, man I messed it up early.. lol.
+
 # v1.1.1
 ## Fixed bug where version command was breaking everything and the world was collapsing
 

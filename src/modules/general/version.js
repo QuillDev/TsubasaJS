@@ -14,7 +14,7 @@ class version extends TsubasaCommand {
     }
 
     async run(msg){
-        return await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Version", "Tsubasa patches and updates can be found here!\nhttps://quilldev.tech/tsubasa/changes"))
+        return await msg.channel.send(this.client.embedHelper.createEmbed(`Tsubasa - Version ${this.client.version}`, "Tsubasa patches and updates can be found here!\nhttps://quilldev.tech/tsubasa/changes"))
     }
 }
 
