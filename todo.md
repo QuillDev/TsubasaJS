@@ -4,6 +4,7 @@
 * Add an "Owner" to the player (only one that can shuffle, pause, etc).
 * Add a majority vote system
 * Override these limitations if you're admin (have manage channels perm)
+* Add some sort of "Alias" system for commands
 ## New Commands
 * t>shuffle - shuffles queue
 * t>master - shows the current owner of the player
