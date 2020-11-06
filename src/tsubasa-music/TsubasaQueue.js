@@ -1,5 +1,4 @@
 const TsubasaDispatcher = require("./TsubasaDispatcher");
-const youtubeReccomendedScraper = require("../services/music/youtubeReccomendedScraper")
 
 class TsubasaQueue extends Map {
     /**
@@ -39,7 +38,8 @@ class TsubasaQueue extends Map {
                 client: this.client,
                 guild: msg.guild,
                 text: msg.channel,
-                player
+                master: msg.author.id,
+                player,
             });
 
             //push the dispatcher to the queue

@@ -11,6 +11,7 @@ class TsubasaDispatcher {
         this.guild = options.guild;
         this.text = options.text;
         this.player = options.player;
+        this.master = options.master;
         this.queue = [];
         this.radio = false;
         this.current = null;

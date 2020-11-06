@@ -36,7 +36,7 @@ class HentaiSearch extends TsubasaCommand {
         const query = args.join(" ");
 
         //get tags from danbooru for the given query
-        const tagData = await got.get(`${base}/tags.json?search[name_matches]=${query}*`)
+        const tagData = await got.get(`${base}/tags.json?search[name_matches]=${query}*&search[order]=count`)
             .then(function(res) {
 
                 //if res is null return null
@@ -65,11 +65,6 @@ class HentaiSearch extends TsubasaCommand {
             return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No tags found for query ${query}.`);
         }
 
-        //sort tag data by the amount of posts per each tag
-        tagData.sort(function(a, b) {
-            return b['post_count'] - a['post_count'];
-        });
-
         //Request for actual images from the tags we found.
         const imageData = await got.get(`${base}/posts.json?tags= -rating:safe -rating:questionable ${tagData[0].name} &random=true`)
             .then(function(res) {
@@ -94,14 +89,14 @@ class HentaiSearch extends TsubasaCommand {
 
         //if the length of the data is 0 return an embed saying there was an error
         if(imageData.length === 0){
-            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No valid images found for query ${query}.`);
+            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `No valid images found for query ${query}. Check danbooru for tags matching your query!`);
         }
 
         //get a random url
         const url = imageData[Math.floor(Math.random() * imageData.length)]['large_file_url'];
 
         //if the url is invalid send an error message
-        if(url == undefined){
+        if(url === undefined){
             return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", "There was an error in the acquired image, please try again!");
         }
 
