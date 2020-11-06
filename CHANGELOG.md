@@ -1,3 +1,8 @@
+# v1.1.1
+## Fixed bug where version command was breaking everything and the world was collapsing
+
+Our savior has arrived
+
 # v1.1.0
 ## Added Change Logs & Version command
 
