@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html>
+<header>
+    <title> Tsubasa - Developer </title>
+    <!-- Add Bootstrap -->
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/basic.css" type="text/css">
+    <script src="/public/scripts/typewriter.js"></script>
+</header>
+
+<body>
+
+    <!-- Code for navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <b><a class="navbar-brand" href="#">『Tsubasa』つばさ </a></b>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../..">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#modules">Modules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/quilldev/tsubasajs">Source</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link donate-bg" href="https://ko-fi.com/M4M727GDD">Ko-Fi</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+
+    <!-- General Bot information -->
+    <div class="info">
+        <logo>『Tsubasa』</logo>
+        <p>Tsubasa is a general purpose discord.js bot by QuillDev ❤️</p>
+
+        <img src="/public/resources/command-example.png">
+        <br>
+        <div class="code-bg">
+            <code id="typewriter">t></code>
+        </div>
+        <br>
+        <p><i><strong>Why Tsubasa ?</strong></i></p>
+        <p>Tsubasa translates to "Wing" in Japanese which relates to my dev name "Quill"
+            <a href="https://bakemonogatari.fandom.com/wiki/Tsubasa_Hanekawa">
+                <br>
+                I also like the character "Hankeawa Tsubasa" from Bakemonogatari.</p></a>
+        <div>
+            <a
+                href="https://discord.com/oauth2/authorize?client_id=753764233484828703&permissions=2147483639&scope=bot"><button
+                    type="button" class="btn btn-dark">Invite Tsubasa</button></a>
+            <a href="https://discord.com/invite/R7UwYe7"><button type="button" class="btn btn-dark">Join Support
+                    Server</button></a>
+        </div>
+        <div>
+            <a href="/tsubasa/changes"><button type="button" class="btn btn-dark">Patch Notes</button></a>
+        </div>
+    </div>
+
+    <!-- add a divider -->
+    <hr class="divider-thick">
+
+    <!-- Modules -->
+    <div id="modules">
+
+        <!--Menu for traversing the modules table-->
+        <h1> Modules </h1>
+        <p> Skip to a module by clicking it here.</p>
+        <a href="#generic"><button type="button" class="btn btn-dark">Generic</button></a>
+        <a href="#music"><button type="button" class="btn btn-dark">Music</button></a>
+        <a href="#anime"><button type="button" class="btn btn-dark">Anime</button></a>
+        <a href="#hentai"><button type="button" class="btn btn-dark">
+                <nsfw>Hentai</nsfw>
+            </button></a>
+        <br><br>
+
+        <!-- Key section giving information about command table-->
+        <h2>Key</h2>
+        <p>
+            Commands in <nsfw>red </nsfw>are <nsfw>NSFW</nsfw>. |
+            <opt>[?argument]</opt> means it is <opt>optional.</opt>
+        </p>
+        <hr class="divider">
+
+        <!-- Entire Table -->
+        <div class="module">
+
+            <!-- Start listing general commands-->
+            <header id="generic"> General </header>
+            <table class="table table-dark table-bordered">
+                <thead>
+                    <tr class="table-head">
+
+                        <th scope="col">Command</th>
+                        <th scope="col">Arguments</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>help</td>
+                        <td>None</td>
+                        <td>Brings you to a site with info on all commands. Probably how you got here</td>
+                    </tr>
+                    <tr>
+                        <td>pfp</td>
+                        <td>
+                            <opt>[@user]</opt>
+                        </td>
+                        <td>Prints the profile picture of the tagged user, or the author if no one is specified.</td>
+                    </tr>
+                    <tr>
+                        <td>invite</td>
+                        <td>None</td>
+                        <td>Invite URL to join the bot to your server.</td>
+                    </tr>
+                    <tr>
+                        <td>source</td>
+                        <td>None</td>
+                        <td>Link to the bots source code on QuillDev's GitHub.</td>
+                    </tr>
+                    <tr>
+                        <td>ping</td>
+                        <td>None</td>
+                        <td>The current delay before commands are executed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr class="divider">
+
+        <!-- Music Module -->
+        <div class="module">
+            <header id="music"> Music </header>
+            <table class="table table-dark table-bordered">
+                <thead>
+                    <tr class="table-head">
+
+                        <th scope="col">Command</th>
+                        <th scope="col">Arguments</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>play</td>
+                        <td>
+                            [query]
+                        </td>
+                        <td>Searches YouTube for the query entered and plays it.</td>
+                    </tr>
+                    <tr>
+                        <td>queue</td>
+                        <td>None</td>
+                        <td>Shows songs in the queue</td>
+                    </tr>
+                    <tr>
+                        <td>skip</td>
+                        <td>None</td>
+                        <td>Skips the song currently playing.</td>
+                    </tr>
+                    <tr>
+                        <td>stop</td>
+                        <td>None</td>
+                        <td>Stops the player from playing any further and disconnects.</td>
+                    </tr>
+                    <tr>
+                        <td>radio</td>
+                        <td>None</td>
+                        <td>Toggles radio mode which auto plays songs.</td>
+                    </tr>
+                    <tr>
+                        <td>lyrics</td>
+                        <td>None</td>
+                        <td>Gets lyrics for the current song if supported.</td>
+                    </tr>
+                    <tr>
+                        <td>pause</td>
+                        <td>None</td>
+                        <td>Toggles whether the player is paused.</td>
+                    </tr>
+                    <tr>
+                        <td>playing</td>
+                        <td>None</td>
+                        <td>Gets the track that's currently playing.</td>
+                    </tr>
+                    <tr>
+                        <td>seek</td>
+                        <td>[time/seconds]</td>
+                        <td>Seeks to the given point in the song if possible</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr class="divider">
+
+            <!-- Anime Module -->
+            <div class="module">
+                <header id="anime"> Anime </header>
+                <table class="table table-dark table-bordered">
+                    <thead>
+                        <tr class="table-head">
+
+                            <th scope="col">Command</th>
+                            <th scope="col">Arguments</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>animesearch</td>
+                            <td>[query]</td>
+                            <td>Searches for anime information matching the query</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Hentai Module -->
+            <div class="module">
+                <header id="hentai">
+                    <nsfw> Hentai</nsfw>
+                </header>
+                <table class="table table-dark table-bordered">
+                    <thead>
+                        <tr class="table-head">
+
+                            <th scope="col">Command</th>
+                            <th scope="col">Arguments</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <nsfw>hentai</nsfw>
+                            </td>
+                            <td><opt>[query]</opt></td>
+                            <td>Searches danbooru for hentai matching the given query.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <nsfw>doujin</nsfw>
+                            </td>
+                            <td>
+                                <opt>[query]</opt>
+                            </td>
+                            <td>Gets a random doujin from the given query off nhentai</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <nsfw>doujintop</nsfw>
+                            </td>
+                            <td>
+                                <opt>[query]</opt>
+                            </td>
+                            <td>Gets top 5 doujins for the query given</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <nsfw>sauce</nsfw>
+                            </td>
+                            <td>
+                                [image url/ attachment]
+                            </td>
+                            <td>Tries to get the source for the given image. (Pixiv/Name/NHentai)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p class="tsubasa-footer">If you enjoy Tsubasa consider supporting me on <a href="https://ko-fi.com/quilldev"><nsfw>Ko-Fi</nsfw></a></p>
+</body>
+
+</html>

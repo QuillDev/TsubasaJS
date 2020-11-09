@@ -1,5 +1,6 @@
 //Load Tsubasa wrapper for discord.js Client
 const {Tsubasa} = require('./src/tsubasa/Tsubasa');
+const Website = require('./src/website/server');
 //setup dotenv for local vars
 require('dotenv').config();
 
@@ -22,7 +23,8 @@ let config = {
     version: version,
 }
 
-
-console.log(process.env.VERSION)
 //create the client using the config
-new Tsubasa(config);
+const tsubasaClient = new Tsubasa(config);
+
+//start the website using our tsubasa client
+new Website(tsubasaClient);

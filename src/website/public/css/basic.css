@@ -1,0 +1,100 @@
+body {
+    background-color: #36393f;
+    color: white;
+}
+
+.navbar {
+    background-color: #2f3136;
+}
+
+logo {
+    font-size: 4em;
+}
+
+.info {
+    padding: 1em;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.info img {
+    border: 1em;
+    width: 24%;
+    border-radius: 20;
+    
+}
+
+/* Dividers */
+.divider {
+    height: .1em;
+    background: #2f3136;;
+}
+
+.divider-thick {
+    height: .2em;
+    background: #2f3136;
+}
+
+code {
+    font-size: 1em;
+    font-family: consolas;
+    color: lime;
+}
+
+/* Module Styles */
+.module {
+    font-size: 1em;
+}
+
+#modules {
+    text-align: center;
+}
+
+.module header {
+    font-size: 3em;
+}
+
+.module p{
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.table-dark{
+    background-color: #2f3136;
+}
+
+.table-head {
+    background-color: #1b1c1f;
+}
+
+.btn-dark{
+    background-color: #1b1c1f;
+}
+
+.btn-text-huge{
+    font-size: 2em;
+}
+
+nsfw {
+    color: #ff6a59;
+}
+
+opt {
+    color: #68a4e8;
+}
+
+.tsubasa-footer {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+version {
+    font-size: 1.5em;
+    display: inline-block;
+    margin: 0;
+}
+
+.latest-button {
+    color: white;
+    background-color: #4a97f0;
+}

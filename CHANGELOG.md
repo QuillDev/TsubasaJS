@@ -1,3 +1,8 @@
+# v2.0.0
+## Added website to main project
+
+Added Tsubasa website into the main project combining the two
+
 # v1.1.4
 ## Added donate command
 
