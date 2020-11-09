@@ -1,3 +1,8 @@
+# v2.1.0
+## Major refactor to music commands
+
+Refactored all music commands to reduce code duplication, no functional changes
+
 # v2.0.0
 ## Added website to main project
 

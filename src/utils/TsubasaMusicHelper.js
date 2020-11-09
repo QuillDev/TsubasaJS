@@ -1,7 +1,7 @@
 /**
  *
  * @param {TsubasaCommand} command
- * @param {Message} msg
+ * @param msg
  * @returns {Promise<*>}
  */
 async function validDispatcher(command, msg){
@@ -28,6 +28,11 @@ async function validDispatcher(command, msg){
     if(dispatcher.player.voiceConnection.voiceChannelID !== msg.member.voice.channelID){
         await msg.channel.send(command.client.embedHelper.createErrorEmbed(title, "You're not in the same voice channel as the player"));
         return;
+    }
+
+    //if the current playing song is null
+    if (!dispatcher.current) {
+        return await msg.channel.send(this.client.embedHelper.createErrorEmbed(title, "No tracks are currently playing"));
     }
 
     return dispatcher;

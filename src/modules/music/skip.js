@@ -22,6 +22,9 @@ class Skip extends TsubasaCommand {
 
         //if the dispatcher exists
         if(dispatcher){
+            //Skip the track, don't need to await this because we don't care when it's sent
+            msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa Skip", `Skipped ${dispatcher.current.info.title}!`));
+
             //stop the current track otherwise(skip)
             await dispatcher.player.stopTrack();
         }
