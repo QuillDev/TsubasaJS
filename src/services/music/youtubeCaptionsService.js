@@ -17,7 +17,7 @@ async function getLyrics(url) {
         .catch(err => console.error(err));
 
     //start and end tags for parsing our subtitle data
-    const startTag = `<script >var ytplayer = ytplayer || {};ytplayer.config = `;
+    const startTag = "<script >var ytplayer = ytplayer || {};ytplayer.config = ";
     const endTag = "ytplayer.web_player_context_config =";
 
     const data = body.substring(body.indexOf(startTag) + startTag.length, body.indexOf(endTag) - 1);

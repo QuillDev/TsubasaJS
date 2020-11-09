@@ -71,7 +71,7 @@ class Lyrics extends TsubasaCommand {
             new reactMenu.menu({
                 channel: msg.channel,
                 userID: msg.author.id,
-                pages: pages,
+                pages,
                 time: 60000
             });
         }

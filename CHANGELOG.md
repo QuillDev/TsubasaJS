@@ -1,3 +1,8 @@
+# v2.1.1
+## Danbooru Failures
+
+Added message for when request to danbooru fails
+
 # v2.1.0
 ## Major refactor to music commands
 

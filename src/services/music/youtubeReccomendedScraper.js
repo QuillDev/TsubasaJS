@@ -2,7 +2,7 @@ const got = require("got");
 
 /**
  * Gets the reccomended video for the video URL given!
- * @param {String} id of the video
+ * @param url
  */
 async function getReccomendedVideoId(url) {
     let body = await got.get(url)
@@ -13,7 +13,7 @@ async function getReccomendedVideoId(url) {
     try {
 
         //data on recommended videos
-        let recommendedData = body.substring(body.indexOf(`window["ytInitialData"] = `) + 26, body.indexOf(`window["ytInitialPlayerResponse"]`) - 6);
+        let recommendedData = body.substring(body.indexOf("window[\"ytInitialData\"] = ") + 26, body.indexOf("window[\"ytInitialPlayerResponse\"]") - 6);
 
         //parse the JSON data we got
         let json = JSON.parse(recommendedData);

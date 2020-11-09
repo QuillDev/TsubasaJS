@@ -29,7 +29,7 @@ class Tsubasa extends Discord.Client {
 
         //login the bot using the bot token from the config
         this.login(config.token)
-            .catch(err => this.logger.error(this.constructor.name, err));
+            .catch( (err) => this.logger.error(this.constructor.name, err));
 
         //get the version
         this.version = config.version;

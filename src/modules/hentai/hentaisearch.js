@@ -60,7 +60,7 @@ class HentaiSearch extends TsubasaCommand {
                     }
 
                     return JSON.parse(body);
-                });
+                })
 
             //check if the tag data came back as null
             if(tagData === null){
@@ -91,9 +91,16 @@ class HentaiSearch extends TsubasaCommand {
                     return null;
                 }
                 return JSON.parse(body);
-            });
+            })
+            .catch((err) => `${err.response.statusCode}`) ;
+
+        //if an error occured and we returned a status code, catch it here
+        if(imageData === "503"){
+            return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", "Danbooru is currently down!, why not try using t>doujin or t>doujintop ;)");
+        }
+
         //check if the tag data came back as null
-        if(imageData === null){
+        if(!imageData){
             return this.client.embedHelper.createErrorEmbed("Tsubasa - Hentai", `An error occurred while getting images for query ${query}.`);
         }
 

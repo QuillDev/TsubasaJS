@@ -29,7 +29,7 @@ async function getSauceData(url) {
             throw "Results came back undefined";
         }
         //filter for only high quality results
-        const filtered = results.filter(result => Number.parseFloat(result["header"]["similarity"]) >= 75);
+        const filtered = results.filter( (result) => Number.parseFloat(result["header"]["similarity"]) >= 75);
 
         //ge the first or "best" result
         if (filtered === "undefined") {
