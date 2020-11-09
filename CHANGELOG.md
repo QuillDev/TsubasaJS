@@ -1,3 +1,8 @@
+# v1.1.4
+## Added donate command
+
+Added donate command which links to my ko-fi
+
 # v1.1.3
 ## Presence Message
 
