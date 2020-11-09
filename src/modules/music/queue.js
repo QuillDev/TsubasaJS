@@ -32,32 +32,40 @@ class Queue extends TsubasaCommand {
                 `
                 ));
             }
-            else if(dispatcher.queue.length < 5) {
+            else if (dispatcher.queue.length < 5) {
 
                 //start the description
                 let description = `Currently Playing: ${dispatcher.current.info.title}\n`;
 
                 //iterate through the first five songs and add them to the description
-                for(let track of dispatcher.queue){
-                    description += `${dispatcher.queue.indexOf(track)+1}) ${track.info.title}\n`;
+                for (let track of dispatcher.queue) {
+                    description += `${dispatcher.queue.indexOf(track) + 1}) ${track.info.title}\n`;
                 }
 
                 //print out the queue
                 return await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Queue", description));
             }
-            else {
-                //start the description
-                let description = `Currently Playing: ${dispatcher.current.info.title}\n`;
+            //start the description
+            let description = `Currently Playing: ${dispatcher.current.info.title}\n`;
 
-                //iterate through the first five songs and add them to the description
-                for(let index = 0; index < 5; index++){
-                    description += `${index+1}) ${dispatcher.queue[index].info.title}\n`;
+            //iterate through the first five songs and add them to the description
+            for (const item of dispatcher.queue) {
+                //get the index of the song
+                const index = dispatcher.queue.indexOf(item);
+
+                //If we're past the 5th song, break;
+                if(index > 4){
+                    break;
                 }
-                description += `and ${dispatcher.queue.length - 5} others!`;
 
-                //print out the queue
-                return await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Queue", description));
+                description += `${index+1}) ${item.info.title}\n`;
             }
+            description += `and ${dispatcher.queue.length - 5} others!`;
+
+            //print out the queue
+            return await msg.channel.send(this.client.embedHelper.createEmbed("Tsubasa - Queue", description));
+
+
         }
 
     }
