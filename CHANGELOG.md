@@ -1,3 +1,8 @@
+# v1.1.3
+## Presence Message
+
+Changed presence message slightly to reflect user count better
+
 # v1.1.2
 ## Version Command Final
 
