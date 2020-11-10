@@ -37,7 +37,7 @@ function setupApp(app) {
     //Listen on port 80 for any traffic
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-        console.log(`App Listening on port ${PORT}`);
+        //TODO Add logger message for this
     });
 }
 

@@ -1,3 +1,8 @@
+# v2.1.2
+## Updated t>anime and t>hentai for better results!
+
+Added more sources to get images from, more fallbacks, etc
+
 # v2.1.1
 ## Danbooru Failures
 
