@@ -1,4 +1,5 @@
 const path = require("path");
+const proxy = require('express-http-proxy');
 
 function setupApp(app) {
     //Directory for pages to be server from
@@ -13,6 +14,9 @@ function setupApp(app) {
     app.get("tsubasa", (req, res) => {
         res.redirect(301, 'https://discord.com/oauth2/authorize?client_id=753764233484828703&permissions=2147483639&scope=bot');
     });
+
+    //proxy to mc server url
+    app.use('minecraft', proxy('104.49.0.142:25565'));
 
     //Routes to projects
     app.get("/tsubasa", (req, res) => {
