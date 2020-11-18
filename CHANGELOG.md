@@ -1,3 +1,8 @@
+# v2.1.3
+## Docs Update
+
+Added anime and donate to the docs
+
 # v2.1.2
 ## Updated t>anime and t>hentai for better results!
 
