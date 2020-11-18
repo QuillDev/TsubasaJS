@@ -16,7 +16,10 @@ function setupApp(app) {
     });
 
     //proxy to mc server url
-    app.use('minecraft', proxy(`${process.env.IP}:25565`));
+    app.use('minecraft', () => {
+        proxy(`${process.env.IP}:25565`);
+        console.log(`${process.env.IP}:25565`)
+    });
 
     //Routes to projects
     app.get("/tsubasa", (req, res) => {
