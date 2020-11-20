@@ -59,7 +59,7 @@ class Ready extends TsubasaEvent {
         await client.user.setPresence({
             status: "online",
             activity: {
-                name: ` ${client.users.cache.size} Users!`,
+                name: `t>help`,
                 type: "LISTENING"
             }
         });
