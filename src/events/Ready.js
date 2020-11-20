@@ -26,14 +26,9 @@ class Ready extends TsubasaEvent {
         this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${guilds.size} guild(s) with ${users.size} user(s)`);
         this.client.logger.debug(`${this.client.user.username}`, `Running Version ${this.client.version}!`);
 
-        //set the presence of the client
-        await this.client.user.setPresence({
-            status: "online",
-            activity: {
-                name: ` ${users.size} Users!`,
-                type: "LISTENING"
-            }
-        });
+        //set the bots presence
+        await setTimeout(this.setPresence, 4000, this.client);
+
         await this.updateDBGGInfo();
     }
 
@@ -51,6 +46,23 @@ class Ready extends TsubasaEvent {
 
         //log the data that we logged
         this.client.logger.debug(this.constructor.name, `Posted data ${body}`);
+    }
+
+    /**
+     * Set the presence
+     * @param client the client to set the presence to
+     * @returns {Promise<void>}
+     */
+    async setPresence(client){
+
+        //set the presence of the client
+        await client.user.setPresence({
+            status: "online",
+            activity: {
+                name: ` ${client.users.cache.size} Users!`,
+                type: "LISTENING"
+            }
+        });
     }
 }
 module.exports = Ready;

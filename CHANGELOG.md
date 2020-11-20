@@ -1,3 +1,8 @@
+# v2.1.4
+## Tried to change presence algorithm
+
+Changed presence counting method because we were denied gate intents for it
+
 # v2.1.3
 ## Docs Update
 
