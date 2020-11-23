@@ -32,7 +32,6 @@ class VoiceStateUpdate extends TsubasaEvent {
         //get the voice channel
         const channel = member.guild.channels.cache.get(member.channelID);
 
-        console.log(channel.members.get(this.client.user.id))
         //destroy the dispatcher
         if(channel.members.size === 1 && channel.members.get(this.client.user.id)){
             dispatcher.destroy("No members left in the channel!");
