@@ -56,6 +56,10 @@ class TsubasaQueue extends Map {
         existing.queue.push(track);
         return null;
     }
+
+    async dispatcherExists(guildId){
+        return this.get(guildId);
+    }
 }
 
 module.exports = TsubasaQueue;

@@ -16,10 +16,6 @@ class TsubasaCommand {
                 throw new TypeError("Classes extending TsubasaCommand must implement \"run\" as async function");
         } else throw new TypeError("Classes extending TsubasaCommand must implement an async function \"run\"");
     }
-
-    get permissions() {
-        return null;
-    }
 }
 
 module.exports = TsubasaCommand;

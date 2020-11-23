@@ -113,11 +113,6 @@ class TsubasaDispatcher {
         //log that we destroyed the dispatcher
         this.client.logger.debug(this.constructor.name, `Destroyed the player dispatcher for guild ${this.guild.name}: ID: "${this.guild.id}"`);
 
-        //if there was a reason, log that reason
-        if(reason){
-            this.client.logger.debug(this.constructor.name, `Destroyed the player dispatcher for guild ${this.guild.name}: ID: "${this.guild.id}"`);
-        }
-
         //set back to defaults
         this.queue.length = 0;
         this.player.disconnect();
@@ -127,6 +122,15 @@ class TsubasaDispatcher {
 
         //remove this guild from the queueing system
         this.client.queue.delete(this.guild.id);
+
+        //if there was a reason, log that reason
+        if(reason){
+            this.client.logger.debug(this.constructor.name, `Destroyed the player dispatcher for guild ${this.guild.name}: ID: "${this.guild.id}"`);
+            //send a message to the channel about leaving due to the queue
+            this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Music", `Left voice channel\n Reason: ${reason}`))
+                .catch(() => null);
+            return;
+        }
 
         //send a message to the channel about leaving due to the queue
         this.text.send(this.client.embedHelper.createEmbed("Tsubasa - Music", "Left the channel because the queue has been emptied!"))

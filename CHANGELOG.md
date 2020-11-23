@@ -1,3 +1,8 @@
+# v2.2.0
+## added auto disconnect when all users leave a voice channel
+
+Added a disconnection functionality that auto disconnects tsubasa when all users leave the voice channel
+
 # v2.1.4
 ## Tried to change presence algorithm
 
