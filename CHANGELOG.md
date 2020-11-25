@@ -1,3 +1,8 @@
+# v2.2.1
+## YT parser fix
+
+fixed broken yt parsing
+
 # v2.2.0
 ## added auto disconnect when all users leave a voice channel
 

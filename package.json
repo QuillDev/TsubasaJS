@@ -1,6 +1,6 @@
 {
   "name": "tsubasajs",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A Discord bot written in JS using discord.js",
   "main": "index.js",
   "scripts": {

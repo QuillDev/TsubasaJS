@@ -25,24 +25,16 @@ async function search(query, page = 1) {
                 return;
             }
 
-            //get the ytinitial data
-            const data = body.substring(body.indexOf("ytInitialData") + 17);
+            let match = body.match(/ytInitialData[^{]*(.*"adSafetyReason":[^;]*});/s);
+            if (match && match.length > 1) {
 
-            let jsonString = "";
-            if(data.includes(`window["ytInitialPlayerResponse"]`)){
-                //parse the string in the style of the window["ytInitialPlayerResposne"] format
-                jsonString = data.substring(0, data.indexOf(`window["ytInitialPlayerResponse"]`) - 6);
-            }
-            else if(data.includes("// scraper_data_end")){
-                //parse the string in the style of the // scraper_data_end format
-                jsonString = `{${data.substring(0, data.indexOf(`// scraper_data_end`)-3)}`;
             }
             else {
-                throw "Unexpected data format... check scraper!";
+                match = body.match(/ytInitialData"[^{]*(.*);\s*window\["ytInitialPlayerResponse"\]/s);
             }
 
             //parse the string to get json
-            const json = JSON.parse(jsonString);
+            const json = JSON.parse(match[1]);
 
             //get the section lists from the json
             let sectionLists = json["contents"]["twoColumnSearchResultsRenderer"]["primaryContents"]["sectionListRenderer"]["contents"];
