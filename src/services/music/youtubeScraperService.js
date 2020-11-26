@@ -25,11 +25,9 @@ async function search(query, page = 1) {
                 return;
             }
 
+            //try out
             let match = body.match(/ytInitialData[^{]*(.*"adSafetyReason":[^;]*});/s);
-            if (match && match.length > 1) {
-
-            }
-            else {
+            if (!match || match.length < 1) {
                 match = body.match(/ytInitialData"[^{]*(.*);\s*window\["ytInitialPlayerResponse"\]/s);
             }
 
