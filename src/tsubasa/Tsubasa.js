@@ -7,6 +7,7 @@ const TsubasaCommandHandler = require("./TsubasaCommandHandler");
 const TsubasaSettingsManager = require("./TsubasaSettingsManager");
 const TsubasaMusicHandler = require("../tsubasa-music/TsubasaMusicHandler");
 const TsubasaEmbedHelper = require("../utils/TsubasaEmbedHelper");
+const ListManager = require("../botlists/ListManager");
 
 const defaults = require("../../config/bot-config.json");
 
@@ -43,6 +44,7 @@ class Tsubasa extends Discord.Client {
         this.settings = new TsubasaSettingsManager(this);
         this.musicHandler = new TsubasaMusicHandler(this);
         this.embedHelper = new TsubasaEmbedHelper(this);
+        this.listManager = new ListManager(this)
         this.discord = Discord;
 
         //build the handlers

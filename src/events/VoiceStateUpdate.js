@@ -10,6 +10,7 @@ class VoiceStateUpdate extends TsubasaEvent {
     }
 
     async run(oldMember, newMember){
+
         await this.processMusicSubsystem(oldMember);
     }
 

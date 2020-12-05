@@ -25,8 +25,10 @@ async function search(query, page = 1) {
                 return;
             }
 
-            //try out
+            //try new formatting
             let match = body.match(/ytInitialData[^{]*(.*"adSafetyReason":[^;]*});/s);
+
+            //if there were no matches use old formatting
             if (!match || match.length < 1) {
                 match = body.match(/ytInitialData"[^{]*(.*);\s*window\["ytInitialPlayerResponse"\]/s);
             }

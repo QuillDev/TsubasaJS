@@ -1,6 +1,5 @@
 const TsubasaEvent = require("../tsubasa-abstract/TsubasaEvent");
-const got = require("got");
-
+const updateLists = require("../botlists/ListManager");
 
 class Ready extends TsubasaEvent {
     get name() {
@@ -26,26 +25,11 @@ class Ready extends TsubasaEvent {
         this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${guilds.size} guild(s) with ${users.size} user(s)`);
         this.client.logger.debug(`${this.client.user.username}`, `Running Version ${this.client.version}!`);
 
-        //set the bots presence
-        await setTimeout(this.setPresence, 4000, this.client);
-
-        await this.updateDBGGInfo();
-    }
-
-    async updateDBGGInfo(){
-
-        //post our currnet guild count to discord.bots
-        const {body} = await got.post(`https://discord.bots.gg/api/v1/bots/${this.client.user.id}/stats`, {
-            headers: {
-                "Authorization": process.env.DBGG_KEY,
-            },
-            json: {
-                guildCount: this.client.guilds.cache.size,
-            }
-        }).catch(err => this.client.logger.error(this.constructor.name, err));
-
-        //log the data that we logged
-        this.client.logger.debug(this.constructor.name, `Posted data ${body}`);
+        //Update the bots presence and guild counts on the sites every 30 minutes
+        setInterval( () => {
+            this.client.listManager.updateLists();
+            this.setPresence(this.client);
+            }, 1800000);
     }
 
     /**

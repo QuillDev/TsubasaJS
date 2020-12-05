@@ -1,3 +1,8 @@
+# v2.3.0
+## Now on TopGG!
+
+Updated server info bot posting stuff to include top.gg and discord.bots.gg
+
 # v2.2.1
 ## YT parser fix
 

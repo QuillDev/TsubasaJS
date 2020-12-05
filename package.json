@@ -1,6 +1,6 @@
 {
   "name": "tsubasajs",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "A Discord bot written in JS using discord.js",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "chalk": "^4.1.0",
+    "dblapi.js": "^2.4.1",
     "discord.js": "^12.3.1",
     "discord.js-reaction-menu": "^1.1.1",
     "dotenv": "^8.2.0",
