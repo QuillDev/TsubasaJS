@@ -4,6 +4,7 @@ const DbotscoClient = require("./DbotscoClient");
 
 class ListManager {
     constructor(client) {
+        this.client = client;
         this.topggClient = new TopggClient(client);
         this.dbotsggClient = new DbotsggClient(client);
         this.dbotscoClient = new DbotscoClient(client);

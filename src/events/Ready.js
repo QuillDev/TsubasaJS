@@ -25,13 +25,24 @@ class Ready extends TsubasaEvent {
         this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${guilds.size} guild(s) with ${users.size} user(s)`);
         this.client.logger.debug(`${this.client.user.username}`, `Running Version ${this.client.version}!`);
 
+        await this.postAndUpdate();
+    }
+
+    /**
+     * Post and update bot numbers and presence
+     * @returns {Promise<void>}
+     */
+    async postAndUpdate(){
+
+        await this.client.listManager.updateLists();
+        await this.setPresence(this.client);
+
         //Update the bots presence and guild counts on the sites every 30 minutes
         setInterval( () => {
             this.client.listManager.updateLists();
             this.setPresence(this.client);
-            }, 1800000);
+        }, 1800000);
     }
-
     /**
      * Set the presence
      * @param client the client to set the presence to
