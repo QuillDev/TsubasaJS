@@ -11,7 +11,7 @@ class TopggClient {
      * @returns {Promise<void>}
      */
     async postCount(){
-        await this.dblClient.postStats(client.guilds.cache.size);
+        await this.dblClient.postStats(this.client.guilds.cache.size);
     }
 }
 
