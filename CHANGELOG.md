@@ -1,3 +1,8 @@
+# v2.3.1
+## Roll command
+
+Added roll command
+
 # v2.3.0
 ## Now on TopGG!
 
