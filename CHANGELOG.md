@@ -1,3 +1,8 @@
+# v2.3.2
+## Added translate command
+
+Added the translate command which translates a message from any* language to english
+
 # v2.3.1
 ## Roll command
 
