@@ -1,3 +1,8 @@
+# v2.4.0
+## Added Games Module
+
+Added the games module, the only game right now is `deathroll` (google it)
+
 # v2.3.2
 ## Added translate command
 

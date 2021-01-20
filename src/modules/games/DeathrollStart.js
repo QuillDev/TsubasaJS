@@ -64,7 +64,7 @@ class DeathrollStart extends TsubasaCommand {
         }
 
         //start a new deathroll game
-        const deathRoll = new DeathRoll(players, 10); //start a new deathroll game
+        const deathRoll = new DeathRoll(players, 10000); //start a new deathroll game
         await deathRoll.play(msg.channel); //start the deathroll game in the given channel
 
 
