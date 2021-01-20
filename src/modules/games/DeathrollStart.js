@@ -3,11 +3,11 @@ const DeathRoll = require("../../services/games/deathroll/DeathRoll");
 
 class DeathrollStart extends TsubasaCommand {
     get name(){
-        return "dr-start";
+        return "deathroll";
     }
 
     get usage(){
-        return "dr start";
+        return "deathroll";
     }
 
     get description(){
@@ -16,10 +16,10 @@ class DeathrollStart extends TsubasaCommand {
 
 
     async run(msg){
-        let message = await msg.channel.send("its a test bro");
-
+        let message = await msg.channel.send(`Join Deathroll - Hosted by ${msg.author.username}!`);
         await message.react("🎮");
 
+        //filter for controller reactions
         const filter = (reaction, user) => {
             return ["🎮"].includes(reaction.emoji.name);
         };
@@ -29,26 +29,44 @@ class DeathrollStart extends TsubasaCommand {
         //wait for players to get into the game
         let users = await message.awaitReactions(filter, { time: 5000, errors: ['time'] })
             .catch( (collector) => {
-                const reactions = collector.first();
 
+                //TODO: Duplicate code, fix plox
+                //if the collector was null, return that we don't have enough players
+                if(collector == null) {
+                    return msg.channel.send(this.client.embedHelper.createErrorEmbed("DeathRoll - Start", "Not enough players to start the death roll!"));
+                }
 
+                const reactions = collector.first(); //get the first reaction from the collector
+                //filter for only non-bot users
                 let users = reactions.users.cache.filter( user => user.bot === false);
 
                 //if the collector is null,
                 if(users.size < 1){
-                    return msg.channel.send(this.client.embedHelper.createEmbed("DeathRoll - Start", "Not enough players to start the death roll!"));
+                    return msg.channel.send(this.client.embedHelper.createErrorEmbed("DeathRoll - Start", "Not enough players to start the death roll!"));
                 }
 
                 return users;
             });
 
-        let printmsg = "Players: ";
+        //create an array for reacting players
+        let players = [];
 
-        console.log(users);
+        //iterate through any users
+        users.forEach( (member) => {
+            players.push(member);
+            console.log(member.username);
+        });
 
-        users.forEach( x => printmsg += `${x.username}, `)
+        //if there are less than 2 players, kill it
+        if(players.length < 2){
+            return msg.channel.send(this.client.embedHelper.createErrorEmbed("Tsubasa - Deathroll",
+                "Not enough players to start the match!"));
+        }
 
-        return msg.channel.send(printmsg);
+        //start a new deathroll game
+        const deathRoll = new DeathRoll(players, 10); //start a new deathroll game
+        await deathRoll.play(msg.channel); //start the deathroll game in the given channel
+
 
     }
 }

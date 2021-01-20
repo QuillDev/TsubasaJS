@@ -14,14 +14,17 @@ class TsubasaEmbedHelper {
      * @returns {module:"discord.js".MessageEmbed} - An embed designed to print errors
      */
     createErrorEmbed(title, description = "") {
-        const embed = new Discord.MessageEmbed()
+
+        //Add info about bug reporting
+        description +="\n\nFound a bug? Report it at!\nhttps://github.com/QuillDev/TsubasaJS/issues !";
+
+        // Create an embed with error data
+        return new Discord.MessageEmbed()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
             .setColor("#f2433a")
             .setTitle(title)
             .setDescription(description)
-            .setTimestamp()
-
-        return embed;
+            .setTimestamp();
     }
 
     /**
@@ -32,15 +35,13 @@ class TsubasaEmbedHelper {
      * @returns {module:"discord.js".MessageEmbed}
      */
     createEmbed(title, description = "", imageUrl = ""){
-        const embed = new Discord.MessageEmbed()
+        return new Discord.MessageEmbed()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
             .setColor(this.client.color)
             .setTitle(title)
             .setDescription(description)
             .setImage(imageUrl)
-            .setTimestamp()
-
-        return embed;
+            .setTimestamp();
     }
 }
 
