@@ -3,6 +3,7 @@ const EventEmitter = require("events");
 const path = require("path");
 const chalk = require("chalk");
 const config = require("../../config/config.json");
+const {post} = require("got");
 
 class TsubasaCommandHandler extends EventEmitter{
     constructor(client) {
@@ -25,9 +26,11 @@ class TsubasaCommandHandler extends EventEmitter{
             //log how many files we found
             this.client.logger.debug(this.constructor.name, `Found ${files.length} modules!`);
 
+            //create the command list
+            const commandlist = {};
+
             //Start loading any files that we found
             for(const file of files){
-
                 //load the command from the file
                 const command = new (require(file))(this.client);
 
@@ -40,7 +43,27 @@ class TsubasaCommandHandler extends EventEmitter{
                 //get a prettier name for the file
                 this.client.logger.fileLogger.info(`[${this.constructor.name}] Loaded command ${command.name}} from ${prettyName}`);
                 this.client.logger.logger.info(chalk`{magenta {bold [${this.constructor.name}]} Loaded command {bold ${command.name}} from {bold ${prettyName}}}`)
+
+
+                //Put the data into a new array
+                const module = prettyName.split("/")[0];
+
+                //if we don't have that property already, add it
+                if(!commandlist.hasOwnProperty(module)){
+                    console.log("Adding", module);
+                    commandlist[module] = [];
+                }
+
+                //add the currnet command to it's module
+                commandlist[module].push({
+                    name: command.name,
+                    usage: command.usage,
+                    description: command.description,
+                    nsfw: command.nsfw
+                });
             }
+            //post the new command data to the website
+            this.updateWebsiteCommands(commandlist);
 
             //log the amount of commands that we loaded
             this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} client command(s)`);
@@ -52,6 +75,11 @@ class TsubasaCommandHandler extends EventEmitter{
         return this;
     }
 
+    /**
+     * Executes a command from the given message
+     * @param msg to execute from
+     * @returns {Promise<*>}
+     */
     async exec(msg) {
         try {
             //If the message is from a bot or is not from a text channel return
@@ -90,7 +118,6 @@ class TsubasaCommandHandler extends EventEmitter{
         }
     }
 
-    //TODO why it mad at dis?
     permissions(msg, perms) {
         if (!Array.isArray(perms)) perms = [perms];
         if (perms.includes("OWNER")){
@@ -98,6 +125,21 @@ class TsubasaCommandHandler extends EventEmitter{
         }
 
         return msg.channel.permissionsFor(msg.member).has(perms);
+    }
+
+    /**
+     * Update the webstie commands based on the given command data
+     * @param commandData to use for the update
+     * @returns {Promise<void>}
+     */
+    async updateWebsiteCommands(commandData){
+        const response = post("https://api.quilldev.tech/api/tsubasa/updateCommands",
+            {
+                json: commandData,
+                headers: {
+                    "ACCESS-TOKEN": process.env.SESSION_SECRET
+                }
+            });
     }
 }
 

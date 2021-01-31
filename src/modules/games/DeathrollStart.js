@@ -54,7 +54,6 @@ class DeathrollStart extends TsubasaCommand {
         //iterate through any users
         users.forEach( (member) => {
             players.push(member);
-            console.log(member.username);
         });
 
         //if there are less than 2 players, kill it
@@ -65,7 +64,12 @@ class DeathrollStart extends TsubasaCommand {
 
         //start a new deathroll game
         const deathRoll = new DeathRoll(players, 10000); //start a new deathroll game
-        await deathRoll.play(msg.channel); //start the deathroll game in the given channel
+        try {
+            await deathRoll.play(msg.channel); //start the deathroll game in the given channel
+        } catch (e){
+            this.client.logger.error(this.constructor, e);
+        }
+
 
 
     }
