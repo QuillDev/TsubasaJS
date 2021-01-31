@@ -30,7 +30,10 @@ class Kanji extends TsubasaCommand{
                 const kanji = document.querySelector("td.kanji").textContent;
                 const descriptions = document.querySelectorAll("div.description");
 
+                //create the array to store info in
                 const info = [];
+
+                //iterate through kanji info and generate the embed data
                 for(let index = 0; index < descriptions.length; index++){
                     if(index === 0){
                         info.push("\n**Meaning:**");
@@ -40,9 +43,12 @@ class Kanji extends TsubasaCommand{
                     }
                     info.push(`${descriptions[index].textContent}`);
                 }
+
+                //get the stroke image & information url
                 const strokeImage = `http://kanji.fm4dd.com/include/stroke.php?kanji=${kanji}`;
                 const informationUrl = `https://jisho.org/search/%23kanji${kanji}`;
 
+                //send a message to the channel based on the kanji
                 msg.channel.send(
                     this.client.embedHelper.createEmbed("Tsubasa - Kanji",
                         `**JLPT Level ${level}**\n**Kanji:**\n${kanji}${info.join("")}
