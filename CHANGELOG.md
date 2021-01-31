@@ -1,3 +1,8 @@
+# v2.4.1
+## Kanji!
+
+Added kanji command
+
 # v2.4.0
 ## Added Games Module
 

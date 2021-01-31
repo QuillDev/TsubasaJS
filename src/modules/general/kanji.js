@@ -20,7 +20,6 @@ class Kanji extends TsubasaCommand{
 
 
         const level = Math.floor(Math.random() * 5) + 1;
-
         get(`http://kanji.fm4dd.com/kanji-random.php?type=JLPT&level=${level}`)
             .then(res => res.body)
             .then( (res) => {
@@ -46,7 +45,7 @@ class Kanji extends TsubasaCommand{
 
                 msg.channel.send(
                     this.client.embedHelper.createEmbed("Tsubasa - Kanji",
-                        `**Kanji:**\n${kanji}${info.join("")}
+                        `**JLPT Level${level}**\n**Kanji:**\n${kanji}${info.join("")}
                         **Additional Information:**
                         ${informationUrl}
                         `, strokeImage)
