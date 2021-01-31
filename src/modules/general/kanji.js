@@ -45,7 +45,7 @@ class Kanji extends TsubasaCommand{
 
                 msg.channel.send(
                     this.client.embedHelper.createEmbed("Tsubasa - Kanji",
-                        `**JLPT Level${level}**\n**Kanji:**\n${kanji}${info.join("")}
+                        `**JLPT Level ${level}**\n**Kanji:**\n${kanji}${info.join("")}
                         **Additional Information:**
                         ${informationUrl}
                         `, strokeImage)
