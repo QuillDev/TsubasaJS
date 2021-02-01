@@ -4,6 +4,7 @@ const path = require("path");
 const chalk = require("chalk");
 const config = require("../../config/config.json");
 const {post} = require("got");
+const updateChangelog = require("../services/website/updateChangelog");
 
 class TsubasaCommandHandler extends EventEmitter{
     constructor(client) {
@@ -68,9 +69,15 @@ class TsubasaCommandHandler extends EventEmitter{
             this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} client command(s)`);
         });
 
+        //update the bots changelog json
+        updateChangelog();
+
+        //bind commands
         const bind = this.exec.bind(this);
         this.client.on("message", bind);
         this.built = true;
+
+        //return the command handler
         return this;
     }
 
@@ -132,7 +139,7 @@ class TsubasaCommandHandler extends EventEmitter{
      * @returns {Promise<void>}
      */
     async updateWebsiteCommands(commandData){
-        const response = post("https://api.quilldev.tech/api/tsubasa/updateCommands",
+        post("https://api.quilldev.tech/api/tsubasa/updateCommands",
             {
                 json: commandData,
                 headers: {

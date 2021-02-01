@@ -23,4 +23,4 @@ let config = {
 }
 
 //create the client using the config
-const tsubasaClient = new Tsubasa(config);
+new Tsubasa(config);

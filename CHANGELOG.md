@@ -100,8 +100,4 @@ made matching better for hentai command
 
 # v1.0.0
 ## Initial Release
-Added Commands
-* doujin
-* doujintop
-* sauce
-
+Added Commands doujin, doujintop, sauce
