@@ -38,7 +38,7 @@ module.exports = updateChangelog = async () => {
             version = headline = description = "";
         }
     }
-g
+
     await post("https://api.quilldev.tech/api/tsubasa/updateChangelogs",
         {
             json: patches,
