@@ -1,3 +1,8 @@
+# v2.4.2
+## Kanji fix
+
+Fixed bug with kanji command where it only used N5 Kanji, added argument to select level
+
 # v2.4.1
 ## Kanji!
 

@@ -9,18 +9,34 @@ class Kanji extends TsubasaCommand{
     }
 
     get usage(){
-        return "kanji";
+        return "kanji {level[1-5]}";
     }
 
     get description(){
         return "Get a random kanj and some information about it";
     }
 
-    async run(msg){
+    async run(msg, args){
 
+        //specify a number between 1 and 5 for the level
+        let level = Math.floor(Math.random() * 5) + 1;
 
-        const level = Math.floor(Math.random() * 5) + 1;
-        get(`http://kanji.fm4dd.com/kanji-random.php?type=JLPT&level=${level}`)
+        //make sure argumnets exist before checking
+        if(args && args.length > 0){
+
+            //parse the level arg from the arguments
+            const levelArg = parseInt(args[0]);
+
+            //check if the number is an interger
+            if(Number.isInteger(levelArg)){
+                if(levelArg <= 5 && levelArg >=1){
+                    level = levelArg;
+                }
+            }
+        }
+
+        //get a random kanji @ the given level
+        get(`http://kanji.fm4dd.com/kanji-random.php?type=JLPT&level=N${level}`)
             .then(res => res.body)
             .then( (res) => {
                 const dom = new JSDOM(res);

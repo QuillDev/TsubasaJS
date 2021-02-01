@@ -50,7 +50,6 @@ class TsubasaCommandHandler extends EventEmitter{
 
                 //if we don't have that property already, add it
                 if(!commandlist.hasOwnProperty(module)){
-                    console.log("Adding", module);
                     commandlist[module] = [];
                 }
 
