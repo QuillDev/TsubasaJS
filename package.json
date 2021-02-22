@@ -1,6 +1,6 @@
 {
   "name": "tsubasajs",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "A Discord bot written in JS using discord.js",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "ibm-watson": "^6.0.2",
     "jsdom": "^16.4.0",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
     "node-webvtt": "^1.9.3",
     "path": "^0.12.7",
     "root-require": "^0.3.1",

@@ -1,3 +1,8 @@
+# v2.4.3
+## CS Market
+
+Added CSMarket Command that allows you to search the steam market for item prices
+
 # v2.4.2
 ## Kanji fix
 
