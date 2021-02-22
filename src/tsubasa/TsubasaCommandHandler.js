@@ -139,7 +139,7 @@ class TsubasaCommandHandler extends EventEmitter{
      * @returns {Promise<void>}
      */
     async updateWebsiteCommands(commandData){
-        post("https://api.quilldev.tech/api/tsubasa/updateCommands",
+        post(`${process.env.URL}api/tsubasa/updateCommands`,
             {
                 json: commandData,
                 headers: {

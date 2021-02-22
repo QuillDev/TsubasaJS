@@ -39,7 +39,7 @@ module.exports = updateChangelog = async () => {
         }
     }
 
-    await post("https://api.quilldev.tech/api/tsubasa/updateChangelogs",
+    await post(`${process.env.URL}api/tsubasa/updateChangelogs`,
         {
             json: patches,
             headers: {
