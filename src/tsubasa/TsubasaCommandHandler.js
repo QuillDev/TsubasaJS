@@ -70,7 +70,7 @@ class TsubasaCommandHandler extends EventEmitter{
         });
 
         //update the bots changelog json
-        updateChangelog();
+        await updateChangelog();
 
         //bind commands
         const bind = this.exec.bind(this);

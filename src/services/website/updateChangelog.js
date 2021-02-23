@@ -7,8 +7,8 @@ module.exports = updateChangelog = async () => {
     let data = fs.readFileSync("CHANGELOG.md", "utf-8");
 
     //get valid lines from the file
-    const lines = data.split("\n").join("").split("\r").filter(x => x.length > 0);
-    
+    const lines = data.split("\n").filter(x => x.length > 0);
+
     //make an array for storing patches in
     const patches = [];
 
