@@ -94,15 +94,12 @@ class TsubasaCommandHandler extends EventEmitter{
             //if we don"t have permission to send messages, return
             if (!msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) return;
 
-            //get the config from the client settings
-            const config = await this.client.settings.get(msg.guild.id, true);
-
             //if the message doesn"t start with the prefix, return
-            if (!msg.content.startsWith(config.prefix)) return;
+            if (!msg.content.startsWith("t>")) return;
 
             //split the command and arguments from the message
-            const args = msg.content.split(" ");
-            let command = args.shift().slice(config.prefix.length);
+            const args = msg.content.split(" "); //TODO fix this PLZ
+            let command = args.shift().slice("t>".length);
 
             //if we don"t have a command that matches the one tried, return
             if (!this.commands.has(command)) return;

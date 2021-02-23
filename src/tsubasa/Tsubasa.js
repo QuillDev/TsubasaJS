@@ -4,7 +4,6 @@ const TsubasaLogger = require("./TsubasaLogger");
 const TsubasaEventHandler = require("./TsubasaEventHandler");
 const TsubasaQueue = require("../tsubasa-music/TsubasaQueue");
 const TsubasaCommandHandler = require("./TsubasaCommandHandler");
-const TsubasaSettingsManager = require("./TsubasaSettingsManager");
 const TsubasaMusicHandler = require("../tsubasa-music/TsubasaMusicHandler");
 const TsubasaEmbedHelper = require("../utils/TsubasaEmbedHelper");
 const ListManager = require("../botlists/ListManager");
@@ -41,7 +40,6 @@ class Tsubasa extends Discord.Client {
         //setup logger
         this.logger = new TsubasaLogger(this);
         this.queue = new TsubasaQueue(this);
-        this.settings = new TsubasaSettingsManager(this);
         this.musicHandler = new TsubasaMusicHandler(this);
         this.embedHelper = new TsubasaEmbedHelper(this);
         this.listManager = new ListManager(this)

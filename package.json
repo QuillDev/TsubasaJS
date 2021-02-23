@@ -33,7 +33,6 @@
     "serve-favicon": "^2.5.0",
     "shoukaku": "^1.5.2",
     "sqlite": "^4.0.15",
-    "sqlite3": "^5.0.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
