@@ -45,5 +45,5 @@ module.exports = updateChangelog = async () => {
             headers: {
                 "ACCESS-TOKEN": process.env.SESSION_SECRET
             }
-        });
+        }).catch(err => console.error(err));
 }

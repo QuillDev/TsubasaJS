@@ -46,8 +46,8 @@ class TsubasaLogger {
      * @param error the error to be logged
      */
     error(constructor, error){
-        this.fileLogger.error(`[ERROR]\n${error}`);
-        this.logger.error(chalk`{red [ERROR] [${constructor}]\n{bold ${error}}}`)
+        this.fileLogger.error(`[ERROR]${error.stack}`);
+        this.logger.error(chalk`{red [ERROR] [${constructor}]{bold ${error.stack}}}`)
     }
 
     /**

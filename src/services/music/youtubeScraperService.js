@@ -26,7 +26,7 @@ async function search(query, page = 1) {
             }
 
             //try new formatting
-            let match = body.match(/ytInitialData[^{]*(.*"adSafetyReason":[^;]*});/s);
+            let match = html.match(/ytInitialData[^{]*(.*?);\s*<\/script>/s);
 
             //if there were no matches use old formatting
             if (!match || match.length < 1) {
