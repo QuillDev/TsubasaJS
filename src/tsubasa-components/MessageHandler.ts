@@ -62,7 +62,7 @@ export class MessageHandler {
 
             const relpath = file.split("src/commands/")[1];
 
-            await import("../commands/" + relpath)
+            import("../commands/" + relpath)
                 .then((module) => {
                     const command: TsubasaCommand = new module.default(this.client);
                     this.commands.set(command.getName(), command);
