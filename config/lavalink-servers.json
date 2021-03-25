@@ -1,6 +1,8 @@
-[{
-  "name": "Localhost",
-  "host": "localhost",
-  "port": 2333,
-  "auth": "youshallnotpass"
-}]
+[
+    { 
+        "name": "Node #1", 
+        "host": "0.0.0.0", 
+        "port": 6969, 
+        "auth": "big_weeb"
+    }
+]

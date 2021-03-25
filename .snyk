@@ -1,9 +1,0 @@
-# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
-ignore:
-  SNYK-JS-NODEADDONAPI-571001:
-    - sqlite3 > node-addon-api:
-        reason: None given
-        expires: '2020-11-22T10:26:36.451Z'
-patch: {}

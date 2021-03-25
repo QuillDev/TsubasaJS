@@ -1,7 +1,7 @@
-/node_modules
-.env
+.vscode/
 .idea/
-db
-*.log
-.vscode
-changelog.htm
+node_modules/
+.env
+src/config/*
+yarn-error.log
+config/
