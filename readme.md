@@ -14,6 +14,8 @@
   - [x] Language Module
   - [ ] Games Module
   - [ ] GameTools Module
+- [ ] Performance
+  - [ ] Replace JSDOM with linkedom
 - [ ] QOL
   - [ ] Logging
   - [ ] Auto Website patch notes
