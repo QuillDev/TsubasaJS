@@ -14,11 +14,10 @@
   - [x] Language Module
   - [x] Games Module
   - [x] GameTools Module
-- [ ] Performance
-  - [ ] Replace JSDOM with linkedom
+- [x] Performance
+  - [x] Replace JSDOM with linkedom
 - [ ] QOL
   - [ ] Logging
-  - [ ] Auto Website patch notes
   - [ ] Lyrics Command Rewrite
   - [ ] Images on music from soundcloud
   - [ ] Spotify playlist support.

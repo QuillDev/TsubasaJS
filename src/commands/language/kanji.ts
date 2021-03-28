@@ -1,8 +1,8 @@
 import get from "got";
 import { Message } from "discord.js";
-import { JSDOM } from "jsdom";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand";
-import { sendEmbed } from "../../helper/embedHelper";
+import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
+import { parseHTML } from "linkedom";
 
 export default class Kanji extends TsubasaCommand {
     public getName(): string {
@@ -14,7 +14,7 @@ export default class Kanji extends TsubasaCommand {
     public getDescription(): string {
         return "Gets a kanji at the given JLPT level";
     }
-    
+
     public async run(msg: Message, args: string[]): Promise<any> {
 
         //TODO: Move this to it's own file?
@@ -36,41 +36,39 @@ export default class Kanji extends TsubasaCommand {
         }
 
         //get a random kanji @ the given level
-        get(`http://kanji.fm4dd.com/kanji-random.php?type=JLPT&level=N${level}`)
-            .then(res => res.body)
-            .then((res) => {
-                const dom = new JSDOM(res);
-                const document = dom.window.document;
+        const { body } = await get(`http://kanji.fm4dd.com/kanji-random.php?type=JLPT&level=N${level}`);
+        if (!body) { return await sendErrorEmbed(msg, "Tsubasa - Kanji", "Failed to get kanji data page."); }
 
-                // Get data on the given kanji
-                const kanji = document.querySelector("td.kanji").textContent;
-                const descriptions = document.querySelectorAll("div.description");
+        const { document } = parseHTML(body);
 
-                //create the array to store info in
-                const info = [];
+        // Get data on the given kanji
+        const kanji = document.querySelector("td.kanji").textContent;
+        const descriptions = document.querySelectorAll("div.description");
 
-                //iterate through kanji info and generate the embed data
-                for (let index = 0; index < descriptions.length; index++) {
-                    if (index === 0) {
-                        info.push("\n**Meaning:**");
-                    }
-                    else if (index === 1) {
-                        info.push("\n**Furigana:**");
-                    }
-                    info.push(`${descriptions[index].textContent}`);
-                }
+        //create the array to store info in
+        const info = [];
 
-                //get the stroke image & information url
-                const strokeImage = `http://kanji.fm4dd.com/include/stroke.php?kanji=${kanji}`;
-                const informationUrl = `https://jisho.org/search/%23kanji${kanji}`;
+        //iterate through kanji info and generate the embed data
+        for (let index = 0; index < descriptions.length; index++) {
+            if (index === 0) {
+                info.push("\n**Meaning:**");
+            }
+            else if (index === 1) {
+                info.push("\n**Readings:**");
+            }
+            info.push(`${descriptions[index].textContent}`);
+        }
 
-                //send a message to the channel based on the kanji
-                sendEmbed(msg, "Tsubasa - Kanji",
-                    `**JLPT Level ${level}**\n**Kanji:**\n${kanji}${info.join("")}
+        //get the stroke image & information url
+        const strokeImage = `http://kanji.fm4dd.com/include/stroke.php?kanji=${kanji}`;
+        const informationUrl = `https://jisho.org/search/%23kanji${kanji}`;
+
+        //send a message to the channel based on the kanji
+        sendEmbed(msg, "Tsubasa - Kanji",
+            `**JLPT Level ${level}**\n**Kanji:**\n${kanji}${info.join("")}
                                 **Additional Information:**
                                 ${informationUrl}
                                 `, strokeImage)
-            });
     }
 
 }

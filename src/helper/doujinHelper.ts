@@ -1,26 +1,26 @@
 import get from "got";
-import {JSDOM} from "jsdom";
+import { parseHTML } from "linkedom";
 
 export interface Doujin {
-    url:string;
-    imageUrl:string;
+    url: string;
+    imageUrl: string;
 }
 
 /**
  * Get the top 5 or less results for a given hentai query.
  * @param {String} query the query to search for
  */
-export const getTop = async (query:string) =>{
+export const getTop = async (query: string) => {
     //scrape doujins for that query
     const doujins = await scrapePopular(query);
 
     //if the doujins fucked up return null
-    if(!doujins || doujins.length === 0){
+    if (!doujins || doujins.length === 0) {
         throw new Error(`No doujins found for the query \`\`${query}\`\`!`)
     }
 
     //if the doujins length is less than or equal to 5 just return it
-    if(doujins.length <= 5){
+    if (doujins.length <= 5) {
         return doujins;
     }
 
@@ -33,28 +33,18 @@ export const getTop = async (query:string) =>{
  * @param {String} query the query to search for
  * @returns {Doujin} a doujin result
  */
-export const getRandom = async (query:string):Promise<Doujin> => {
+export const getRandom = async (query: string): Promise<Doujin> => {
     //if there was no query get a completely random doujin
     if (!query) {
-        const doujin = await get("https://nhentai.net/random/")
-            .then((res) => {
-                const dom = new JSDOM(res.body);
-                const url = res.url;
-                const image_url = dom.window.document.querySelector("img.lazyload").getAttribute("data-src");
-                return {
-                    url,
-                    imageUrl:image_url,
-                };
-            })
-            .catch(() => {throw new Error("Invalid request or nhentai is down!")});
+        const { body, url, statusCode } = await get("https://nhentai.net/random/");
+        if (statusCode != 200) { throw new Error(`Nhentai error ${statusCode}, is it down?`); }
 
-        //if the doujin is throw an error
-        if (!doujin) {
-            throw new Error("Failed to get a doujin!");
-        }
-
-        //return the doujin otherwise
-        return doujin;
+        const dom = parseHTML(body);
+        const image_url = dom.window.document.querySelector("img.lazyload").getAttribute("data-src");
+        return {
+            url,
+            imageUrl: image_url,
+        };
     }
 
     try {
@@ -78,7 +68,7 @@ export const getRandom = async (query:string):Promise<Doujin> => {
  * @param {String} query
  * @returns {Doujin[]} Array of doujin results
  */
-export const scrapePopular = async (query:string):Promise<Doujin[]> => {
+export const scrapePopular = async (query: string): Promise<Doujin[]> => {
 
     //Create the url depending on whether there was a query or not
     let url;
@@ -90,7 +80,7 @@ export const scrapePopular = async (query:string):Promise<Doujin[]> => {
 
     const body = await get(url)
         .then((res) => res.body)
-        .catch((err) => {throw err});
+        .catch((err) => { throw new Error(err) });
 
     //if body was null, return null
     if (!body) {
@@ -103,10 +93,10 @@ export const scrapePopular = async (query:string):Promise<Doujin[]> => {
     try {
 
         //Create the dom from the body
-        const dom = new JSDOM(body);
+        const { document } = parseHTML(body);
 
         //get the doujin container
-        const doujinContainers = dom.window.document.querySelectorAll("div div.container");
+        const doujinContainers = document.querySelectorAll("div div.container");
 
         //iterate through the doujin containers
         for (const doujinContainer of doujinContainers) {
@@ -134,7 +124,7 @@ export const scrapePopular = async (query:string):Promise<Doujin[]> => {
         }
 
     }
-        //if there was an error return null
+    //if there was an error return null
     catch {
         throw new Error("There was an error retrieving doujin data!");
     }

@@ -7,12 +7,10 @@
     "start": "ts-node-dev --respawn index.ts"
   },
   "dependencies": {
-    "@types/jsdom": "^16.2.7",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "fast-glob": "^3.2.5",
     "got": "^11.8.2",
-    "jsdom": "^16.5.1",
     "linkedom": "^0.6.2",
     "shoukaku": "^1.6.3",
     "youtubei": "^0.0.1-rc.14"

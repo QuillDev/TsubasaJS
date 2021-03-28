@@ -1,6 +1,5 @@
 import get from "got";
-import { JSDOM } from "jsdom";
-import AnimeSearch from "../commands/anime/animesearch";
+import { parseHTML } from "linkedom";
 
 interface AnimeData {
     image_url: string;
@@ -31,22 +30,22 @@ export const searchMAL = async (query: string): Promise<AnimeData[]> => {
     }
 
     //array for storing response data in
-    const animeData:AnimeData[] = [];
+    const animeData: AnimeData[] = [];
 
     //try to parse data from the response
     try {
 
-        //create a jsdom body
-        const dom = new JSDOM(body);
+        //get the dom document
+        const { document } = parseHTML(body);
 
         //get the table
-        dom.window.document.querySelectorAll("div.js-categories-seasonal table tr")
+        document.querySelectorAll("div.js-categories-seasonal table tr")
             .forEach((node) => {
                 //Break the loop if the length has gotten to 5
                 if (animeData.length === 5) {
                     return;
                 }
-                
+
                 const tableDivisons = node.querySelectorAll(`td`);
 
                 //get the data div
