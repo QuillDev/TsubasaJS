@@ -23,6 +23,7 @@ export const getMarketEntries = async (appId: number, query: string) => {
         const price = node.querySelector("span.market_table_value.normal_price span.normal_price").textContent;
         const name = node.querySelector("span.market_listing_item_name").textContent;
         const img = node.querySelector("img.market_listing_item_img").getAttribute("src");
+        
         data.push({
             price,
             name,

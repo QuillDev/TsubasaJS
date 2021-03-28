@@ -6,14 +6,14 @@
 ![Tsubasa Example](images/tsubasa-example.gif)
 ## TODO
 
-- [ ] Command Rewrite
+- [x] Command Rewrite
   - [x] General Module
   - [x] Anime Module
   - [x] Music Module
   - [x] NSFW Module
   - [x] Language Module
   - [x] Games Module
-  - [ ] GameTools Module
+  - [x] GameTools Module
 - [ ] Performance
   - [ ] Replace JSDOM with linkedom
 - [ ] QOL

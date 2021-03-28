@@ -4,6 +4,7 @@ import { setClient } from "./helper/embedHelper";
 import { MessageHandler } from "./tsubasa-components/MessageHandler";
 import { TsubasaMusicHandler } from "./tsubasa-components/music/TsubasaMusicHandler";
 import { TsubasaQueue } from "./tsubasa-components/music/TsubasaQueue";
+import { VoiceStateHandler } from "./tsubasa-components/VoiceStateHandler";
 
 
 export class TsubasaClient extends Client {
@@ -18,6 +19,7 @@ export class TsubasaClient extends Client {
         this.messageHandler = new MessageHandler(this);
         this.musicQueue = new TsubasaQueue(this);
         this.musicHandler = new TsubasaMusicHandler(this);
+        new VoiceStateHandler(this);
 
         this.on("ready", () => {
             this._logGuildCount();
