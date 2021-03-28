@@ -12,7 +12,7 @@
   - [x] Music Module
   - [x] NSFW Module
   - [x] Language Module
-  - [ ] Games Module
+  - [x] Games Module
   - [ ] GameTools Module
 - [ ] Performance
   - [ ] Replace JSDOM with linkedom

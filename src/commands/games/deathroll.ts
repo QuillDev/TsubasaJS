@@ -108,6 +108,7 @@ export default class DeathRoll extends TsubasaCommand {
                     ));
                 await wait();
             }
+            
             // Handle lowest mode elimination if we're not in death mode
             if (!deathMode) { userToElim = lowest.user; reason = "they rolled the lowest!" };
             if (userToElim) {
