@@ -1,14 +1,11 @@
 import { Client, ClientOptions } from "discord.js";
-import { Shoukaku } from "shoukaku";
 import { setClient } from "./helper/embedHelper";
 import { MessageHandler } from "./tsubasa-components/MessageHandler";
 import { VoiceStateHandler } from "./tsubasa-components/VoiceStateHandler";
-import DisTube = require("distube");
 import { TsubasaPlayer } from "./tsubasa-components/Music/TsubasaPlayer";
 
 export class TsubasaClient extends Client {
-
-    public shoukaku: Shoukaku;
+    
     public messageHandler: MessageHandler;
     public tsubasaPlayer: TsubasaPlayer;
 
