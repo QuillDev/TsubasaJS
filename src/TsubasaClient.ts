@@ -2,25 +2,24 @@ import { Client, ClientOptions } from "discord.js";
 import { Shoukaku } from "shoukaku";
 import { setClient } from "./helper/embedHelper";
 import { MessageHandler } from "./tsubasa-components/MessageHandler";
-import { TsubasaMusicHandler } from "./tsubasa-components/music/TsubasaMusicHandler";
-import { TsubasaQueue } from "./tsubasa-components/music/TsubasaQueue";
 import { VoiceStateHandler } from "./tsubasa-components/VoiceStateHandler";
-
+import DisTube = require("distube");
+import { TsubasaPlayer } from "./tsubasa-components/Music/TsubasaPlayer";
 
 export class TsubasaClient extends Client {
 
     public shoukaku: Shoukaku;
     public messageHandler: MessageHandler;
-    public musicQueue: TsubasaQueue;
-    public musicHandler: TsubasaMusicHandler;
+    public tsubasaPlayer: TsubasaPlayer;
 
     constructor(opts: ClientOptions) {
         super(opts);
-        this.messageHandler = new MessageHandler(this);
-        this.musicQueue = new TsubasaQueue(this);
-        this.musicHandler = new TsubasaMusicHandler(this);
-        new VoiceStateHandler(this);
 
+        // envent handlers
+        // TODO: Break these out into their own file
+        this.messageHandler = new MessageHandler(this);
+        new VoiceStateHandler(this);
+        this.tsubasaPlayer = new TsubasaPlayer(this);
         this.on("ready", () => {
             this._logGuildCount();
             setInterval(() => { this._logGuildCount(); }, 1000 * 60 * 30);
@@ -40,6 +39,5 @@ export class TsubasaClient extends Client {
     _setupClientEvents = () => {
         setClient(this);
         this.messageHandler.init();
-        this.musicHandler.init();
     }
 }

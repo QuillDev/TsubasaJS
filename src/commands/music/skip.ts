@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand";
-import { sendEmbed } from "../../helper/embedHelper";
-import { getMusicComponents } from "../../helper/musicHelper";
+import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
+import { handlePlayerErr } from "../../helper/playerErrorHelper";
 
 export default class Skip extends TsubasaCommand {
     public getName(): string {
@@ -14,9 +14,12 @@ export default class Skip extends TsubasaCommand {
         return "Skips the currently playing song.";
     }
     public async run(msg: Message, _args: string[]): Promise<any> {
-        const { dispatcher } = await getMusicComponents(msg, this.client);
-        sendEmbed(msg, "Tsubasa - Skip", `Skipping ${dispatcher.current.info.title}!`);
-        await dispatcher.player.stopTrack(); //stop the current track (which essentially skips it)
-        
+        try {
+            const playing = this.client.tsubasaPlayer.getQueue(msg).songs[0];
+            this.client.tsubasaPlayer.skip(msg);
+            sendEmbed(msg, "Tsubasa - Skip", `Skipped \`\`${playing.name}\`\`!`);
+        }
+        catch (err) { handlePlayerErr(err, msg)}
+
     }
 }

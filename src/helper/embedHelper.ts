@@ -3,6 +3,7 @@ import { Client, DMChannel, Message, MessageEmbed, NewsChannel, TextChannel } fr
 const notSetEmbed = new MessageEmbed({ title: "Client Not Set" });
 let client: Client = null;
 
+//TODO: Remove unneccesary commands form this fil 
 /**
  * Return an information type embed for message display
  * @param title of the embed
@@ -46,8 +47,13 @@ export const createErrorEmbed = (title: string = "", description: string = "", i
         .setTimestamp();
 }
 
-export const sendEmbedToChannel = async (channel: TextChannel | DMChannel | NewsChannel, title: string = "", desc: string = "", imgUrl: string = "", thmbUrl = "") => {
-    return await channel.send(createEmbed(title, desc, imgUrl, thmbUrl));
+export const sendEmbedToChannel = async (channel: TextChannel | DMChannel | NewsChannel, title: string = "", desc: string = "", imgUrl: string = "", thmbUrl = "", msg?: Message) => {
+
+    let embed = createEmbed(title, desc, imgUrl, thmbUrl);
+    if (msg) {
+        embed = embed.setFooter(`Requested by: ${msg.author.username}`, msg.author.displayAvatarURL());
+    }
+    return await channel.send(embed);
 }
 
 export const sendErrorEmbedToChannel = async (channel: TextChannel | DMChannel | NewsChannel, title: string = "", desc: string = "", imgUrl: string = "", thmbUrl = "") => {
@@ -55,7 +61,11 @@ export const sendErrorEmbedToChannel = async (channel: TextChannel | DMChannel |
 }
 
 export const sendEmbed = async (msg: Message, title: string = "", desc: string = "", imgUrl: string = "", thmbUrl = "") => {
-    return await sendEmbedToChannel(msg.channel, title, desc, imgUrl, thmbUrl);
+    return await sendEmbedToChannel(msg.channel, title, desc, imgUrl, thmbUrl, msg);
+}
+
+export const sendRawEmbed = async (msg: Message, embed: MessageEmbed) => {
+    msg.channel.send(embed);
 }
 
 export const sendErrorEmbed = async (msg: Message, title: string = "", desc: string = "", imgUrl: string = "", thmbUrl = "") => {

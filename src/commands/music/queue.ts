@@ -1,7 +1,6 @@
 import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand"
-import { sendEmbed } from "../../helper/embedHelper";
-import { getMusicComponents } from "../../helper/musicHelper";
+import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
 
 export default class Queue extends TsubasaCommand {
     public getName(): string {
@@ -14,21 +13,31 @@ export default class Queue extends TsubasaCommand {
         return "Gets the queue for the current player."
     }
     public async run(msg: Message, _args: string[]): Promise<any> {
-        const { dispatcher } = await getMusicComponents(msg, this.client);
+        const player = this.client.tsubasaPlayer;
 
-        const songStrings:string[] = [`Playing: ${dispatcher.current.info.title}`];
-        const queue = dispatcher.queue;
+        const queue = player.getQueue(msg);
+        if (!queue || queue.songs.length === 0) {
+            return await sendErrorEmbed(msg, "Tsubasa - Queue", "This guildis not playing anything!");
+        }
 
-        //Iterate through either length or 5 songs, whichever is less
-        for(let i = 0; i < Math.min(queue.length, 5); i++){
-            songStrings.push(`${i+1}) ${queue[i].info.title || "No title data!"}`);
+        const printQueue = queue.songs.slice(0, Math.min(6, queue.songs.length));
+        const playing = printQueue.shift();
+        let description = `Now Playing: **${playing.name}** - *${playing.formattedDuration}*\n`;
+        let i = 1;
+        printQueue.forEach((song) => {
+            let maxLength = 10;
+            let songName = song.name;
+            if(songName.length > maxLength + 3) {
+                songName = (songName.substring(0, 25) + "...");
+            }
+            description += `**${i}.** **${songName}** - *${song.formattedDuration}*\n`;
+            i++;
+        });
+
+        if(queue.songs.length > 6){
+            description += `and **${queue.songs.length - 6}** more!`;
         }
-        
-        //if we happen to have a really long queue, say how many songs past the ones we listed are in the queue.
-        if(queue.length > 5){
-            songStrings.push(`... and ${queue.length -5} more!`);
-        }
-        return sendEmbed(msg, "Tsubasa - Queue", songStrings.join("\n"));
+        sendEmbed(msg, "Tsubasa - Queue", description);
     }
 
 }

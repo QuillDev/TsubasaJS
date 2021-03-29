@@ -14,10 +14,6 @@ export default class Stop extends TsubasaCommand {
         return "Stops the player and disconnects it";
     }
     public async run(msg: Message, _args: string[]): Promise<any> {
-        const {dispatcher} = await getMusicComponents(msg, this.client);
-        dispatcher.queue.length = 0;
-        await dispatcher.player.stopTrack();
-        return await sendEmbed(msg, "Tsubasa - Stop", "Stopping the player!");
     }
 
 }
