@@ -17,7 +17,7 @@ export default class autoplay extends TsubasaCommand {
         return "autoplay"
     }
 
-    public async run(msg: Message, args: string[]): Promise<any> {
+    public async run(msg: Message, _args: string[]): Promise<any> {
         try {
             const autoPlaying = this.client.tsubasaPlayer.toggleAutoplay(msg);
             const desc = `Auto player is now ${autoPlaying ? "**ON**:white_check_mark:" : "**OFF**:octagonal_sign:"}`;

@@ -1,7 +1,6 @@
 import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand";
 import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
-import { getMusicComponents } from "../../helper/musicHelper";
 import { handlePlayerErr } from "../../helper/playerErrorHelper";
 
 export default class Seek extends TsubasaCommand {

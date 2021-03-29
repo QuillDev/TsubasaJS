@@ -1,9 +1,7 @@
 import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand";
 import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
-import { getMusicComponents } from "../../helper/musicHelper";
 import { handlePlayerErr } from "../../helper/playerErrorHelper";
-import { getId } from "../../helper/youtubeHelper";
 
 export default class Playing extends TsubasaCommand {
     public getName(): string {
