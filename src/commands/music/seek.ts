@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand";
 import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
 import { getMusicComponents } from "../../helper/musicHelper";
+import { handlePlayerErr } from "../../helper/playerErrorHelper";
 
 export default class Seek extends TsubasaCommand {
     public getName(): string {
@@ -14,38 +15,19 @@ export default class Seek extends TsubasaCommand {
         return "seek [time:seconds]"
     }
     public async run(msg: Message, args: string[]): Promise<any> {
-
-        //check if the dispatcher is valid
-        const { dispatcher } = await getMusicComponents(msg, this.client);
-        if (args.length === 0) {
-            return await sendErrorEmbed(msg,
-                "Tsubasa - Seek",
-                "Seek requires a seconds argument!");
+        //if we got no args, or bad args
+        if (!args || args.length === 0) {
+            return await sendErrorEmbed(msg, "Tsubasa - Seek", "You did not supply a time to seek to!");
         }
-
-        //save the seekpoint and convert it to MS
         const seconds = Number.parseInt(args[0]);
         if (Number.isNaN(seconds)) {
-            return await sendErrorEmbed(msg,
-                `Tsubasa - Seek", "Invalid argument \`\`${args[0]}\`\``);
+            return await sendErrorEmbed(msg, "Tsubasa - Seek", "The time you supplied was invalid.");
         }
 
-        //calculate the seekpoint & try to seek
-        const seekPoint = seconds * 1000;
-        //if the seek point is out of the acceptable range
-        if (seekPoint > dispatcher.current.info.length || seekPoint < 0) {
-            return await sendErrorEmbed(msg,
-                "Tsubasa - Seek",
-                `Your chosen position was not in the range of valid input.`);
-        }
+        try {
+            this.client.tsubasaPlayer.seek(msg, seconds * 1000);
+        } catch (err) { handlePlayerErr(err, msg) }
 
-        //seek to the point
-        dispatcher.player.seekTo(seekPoint)
-            .catch(async () => await sendErrorEmbed(msg,
-                "Tsubasa - Seek",
-                "There was an error when seeking the track."));
 
-        //send the message to the channel, don't worry about awaiting it
-        return await sendEmbed(msg, "Tsubasa Seek", `Seeked to ${seconds} seconds!`);
     }
 }

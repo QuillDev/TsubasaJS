@@ -3,36 +3,36 @@ import { TsubasaCommand } from "../../abstract/TsubasaCommand";
 import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
 import { handlePlayerErr } from "../../helper/playerErrorHelper";
 
-export default class Pause extends TsubasaCommand {
+export default class Resume extends TsubasaCommand {
     public getName(): string {
-        return "pause"
+        return "resume"
     }
 
     public getUsage(): string {
-        return "pause";
+        return "resume";
     }
 
     public getDescription(): string {
-        return "Pauses the player.";
+        return "Resumes a paused player.";
     }
 
     public async run(msg: Message, _args: string[]): Promise<any> {
 
-
         try {
             const player = this.client.tsubasaPlayer;
-            if (player.isPaused(msg)) {
-                return await sendErrorEmbed(msg, "Tsubasa - Pause",
-                    `This player is already paused!
-                to resume use \`\`${process.env.PREFIX}resume\`\``);
+
+            if (!player.isPaused(msg)) {
+                return await sendErrorEmbed(msg, "Tsubasa - Resume",
+                    `This player is already playing!
+                    to pause use \`\`${process.env.PREFIX}pause\`\`.`);
             }
 
             //pause the player
-            player.pause(msg);
+            player.resume(msg);
 
             return await sendEmbed(msg,
-                "Tsubasa - Pause",
-                `Paused the player! :pause_button:`
+                "Tsubasa - Resume",
+                `Resumed the player! :arrow_forward:`
             );
         } catch (err) { handlePlayerErr(err, msg) }
 
