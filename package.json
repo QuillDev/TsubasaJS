@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node index.ts",
-    "dev": "ts-node-dev --respawn index.ts"
+    "dev": "tsnd --respawn index.ts"
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
