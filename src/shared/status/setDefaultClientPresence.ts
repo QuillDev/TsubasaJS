@@ -5,7 +5,8 @@ export const setDefaultStatus = async (client: Client) => {
     return await setClientPresence(client, {
         activity: {
             name: "for t>help",
-            type: "WATCHING"
+            type: "WATCHING",
+            url: "https://quilldev.tech/"
         }, status: "online"
     });
 
