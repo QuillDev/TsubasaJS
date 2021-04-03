@@ -18,10 +18,10 @@ export class TsubasaClient extends Client {
         this.messageHandler = new MessageHandler(this);
         new VoiceStateHandler(this);
         this.tsubasaPlayer = new TsubasaPlayer(this);
-        this.on("ready", () => {
+        this.on("ready", async () => {
             this._logGuildCount();
-            setDefaultStatus(this);
-            setInterval(async () => { this._logGuildCount(); await setDefaultStatus(this); }, 1000 * 60 * 30);
+            await setDefaultStatus(this);
+            setInterval(async () => { await setDefaultStatus(this); this._logGuildCount(); }, 1000 * 60 * 30);
         });
 
         this.on("shardResume", async () => {
