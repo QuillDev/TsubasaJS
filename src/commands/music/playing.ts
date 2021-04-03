@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand";
-import { sendEmbed, sendErrorEmbed } from "../../helper/embedHelper";
+import { sendEmbed } from "../../helper/embedHelper";
 import { handlePlayerErr } from "../../helper/playerErrorHelper";
 
 export default class Playing extends TsubasaCommand {

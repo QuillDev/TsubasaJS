@@ -5,7 +5,7 @@
 ## Usage Example
 ![Tsubasa Example](images/tsubasa-example.gif)
 ## TODO
-
+- [ ] Support for spotify
 - [x] Command Rewrite
   - [x] General Module
   - [x] Anime Module
@@ -19,8 +19,7 @@
 - [ ] QOL
   - [ ] Logging
   - [ ] Lyrics Command Rewrite
-  - [ ] Images on music from soundcloud
-  - [ ] Spotify playlist support.
+  - [x] Images on music from soundcloud
 
 <br/>
 
