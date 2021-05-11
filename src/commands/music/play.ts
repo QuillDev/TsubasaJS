@@ -1,6 +1,5 @@
 import { Message } from "discord.js";
 import { TsubasaCommand } from "../../abstract/TsubasaCommand"
-import { TsubasaClient } from "../../TsubasaClient";
 
 export default class Play extends TsubasaCommand {
     public getName(): string {

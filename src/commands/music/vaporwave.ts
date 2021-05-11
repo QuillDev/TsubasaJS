@@ -20,7 +20,7 @@ export default class vaporwave extends TsubasaCommand {
     public async run(msg: Message, _args: string[]): Promise<any> {
         try {
             let filter = this.client.tsubasaPlayer.setFilter(msg, "vaporwave");
-            await sendEmbed(msg, "Tsubasa - vaporwave", `Applied the \`\`${filter}\`\` filters.`);
+            await sendEmbed(msg, "Tsubasa - Vaporwave", `Applied the \`\`${filter}\`\` filters.`);
         } catch (err) { handlePlayerErr(err, msg) }
 
     }

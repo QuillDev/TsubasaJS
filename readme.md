@@ -24,7 +24,7 @@
 <br/>
 
 ## Key Features
-Full list of features [HERE](https://quilldev.tech/tsubasa)
+Full list of features [HERE](https://quill.moe/tsubasa)
 
 ## Module Information
 Key|Meaning

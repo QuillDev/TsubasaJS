@@ -19,7 +19,7 @@ export default class Version extends TsubasaCommand {
         return sendEmbed(msg,
             `Tsubasa - v${process.env.npm_package_version}`,
             `Tsubasa patches and updates can be found here!
-            https://quilldev.tech/tsubasa/changes`
+            https://quill.moe/tsubasa/changes`
         );
     }
 

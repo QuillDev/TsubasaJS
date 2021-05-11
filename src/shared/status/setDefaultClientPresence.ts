@@ -6,7 +6,7 @@ export const setDefaultStatus = async (client: Client) => {
         activity: {
             name: "for t>help",
             type: "WATCHING",
-            url: "https://quilldev.tech/"
+            url: "https://quill.moe/"
         }, status: "online"
     });
 

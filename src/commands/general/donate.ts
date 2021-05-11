@@ -16,7 +16,7 @@ export default class Donate extends TsubasaCommand{
         return sendEmbed(msg, 
             "Donate",
             `Feeling generous? Help Quilldev develop more content like Tsubasa!
-            https://quilldev.tech/donate`,
+            https://quill.moe/donate`,
             null,
             "https://storage.ko-fi.com/cdn/useruploads/90b93b74-0a70-4e95-bfce-935f5e52aae2.png"
             )

@@ -16,10 +16,10 @@ export default class Help extends TsubasaCommand {
         return sendEmbed(msg,
             "Help",
             `Need some help? The official Tsubasa website might help!
-            https://quilldev.tech/tsubasa
+            https://quill.moe/tsubasa
             `,
             null,
-            `https://quilldev.tech/logo192.png`
+            `https://quill.moe/logo192.png`
             );
     }
     
