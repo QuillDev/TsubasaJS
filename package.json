@@ -16,7 +16,9 @@
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "events": "^3.3.0",
+    "fast-glob": "^3.2.5",
     "inversify": "^5.1.1",
+    "path": "^0.12.7",
     "reflect-metadata": "^0.1.13"
   }
 }
