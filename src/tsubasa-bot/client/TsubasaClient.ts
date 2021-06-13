@@ -12,9 +12,5 @@ export class TsubasaClient extends Client implements ITsubasaClient {
         @inject(TYPES.ClientOptions) clientOptions: ClientOptions,
     ) {
         super(clientOptions);
-
-        this.on('ready', () => {
-            console.info(`Logged in as ${this.user?.username}!`)
-        })
     }
 }

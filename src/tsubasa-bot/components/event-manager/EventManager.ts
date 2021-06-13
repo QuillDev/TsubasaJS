@@ -5,7 +5,7 @@ import {inject, injectable} from "inversify";
 import {TsubasaClient} from "../../client/TsubasaClient";
 import {TYPES} from "../../../../types/TsubasaTypes";
 import {ITsubasaEvent} from "../../abstract/ITsubasaEvent";
-import {container} from "../../../containers/TsubasaIOC";
+import {ClientEvent} from "./ClientEvent";
 
 @injectable()
 export class EventManager implements IEventManager {
@@ -37,12 +37,20 @@ export class EventManager implements IEventManager {
                 //Iterate through all the keys in the module
                 for (const key of Object.keys(module)) {
                     const entry = module[key]; //get the command
-                    const command: ITsubasaEvent = new entry(); //create an instance of the command
-                    if (entry == null) return;
+
+                    //If we're handling a client event, we want to inject the client
+                    //into the instructor
+                    let command: ITsubasaEvent;
+                    if (entry.prototype instanceof ClientEvent) {
+                        command = new entry(this._client);
+                    } else {
+                        command = new entry(); //create an instance of the command
+                    }
+                    if (command == null) return;
 
                     //Dynamic event registry
                     console.info(`Added event ${command.trigger}`);
-                    this._client.on(command.trigger, command.run);
+                    this._client.on(command.trigger, (args) => command.run(args));
                 }
             }).catch();
         }
