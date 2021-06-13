@@ -14,6 +14,6 @@ const client = container.get<TsubasaClient>(TYPES.ITsubasaClient);
 (async () => {
     //Login to discord
     await manager.init();
-    // await client.login(process.env.DISCORD_SECRET); //TODO: Turn back on
+    await client.login(process.env.DISCORD_SECRET);
 
 })().catch(console.error);

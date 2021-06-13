@@ -5,18 +5,46 @@ import {ICommandManager} from "./ICommandManager";
 import {join} from "path";
 import * as fg from "fast-glob";
 import {ITsubasaCommand} from "../abstract/ITsubasaCommand";
+import {Message} from "discord.js";
+import assert = require("assert");
+import {container} from "../../containers/TsubasaIOC";
 
 @injectable()
 export class CommandManager implements ICommandManager {
 
     private _client: TsubasaClient; //get the tsubasa-bot client
     private readonly _commandMap: Map<String, ITsubasaCommand>;
+    private readonly prefix = process.env.PREFIX;
 
     constructor(
         @inject(TYPES.ITsubasaClient) client: TsubasaClient
     ) {
         this._client = client;
         this._commandMap = new Map<String, ITsubasaCommand>();
+
+        this._client.on('message', (msg) => this.listener(msg));
+    }
+
+    listener = async (msg: Message) => {
+        const author = msg.author; //get the author of the msg
+        const rawContent = msg.content; //get the content of the message
+
+        //check invalid cases
+        if (author.bot) return; //if the author is a bot, return
+        if (rawContent.length == 0) return; //if the message has no length, return
+        if (this.prefix == null) return; // if the prefix is null, return
+        if (!rawContent.startsWith(this.prefix)) return; //if the msg doesnt start with the prefix
+
+        //Parse the text content
+        const content = rawContent.substr(this.prefix.length); //adjust the content
+        const args = content.split(" "); //get the command args
+        const commandKey = args.shift(); //get the command name
+        if (commandKey == null) return; //if there is no name, return out
+        const command = this._commandMap.get(commandKey); //get the command
+
+        //run the command
+        if (command == null) return;
+        await command.run(msg, args); //run the command asynchronously
     }
 
     loadCommands = async (): Promise<void> => {
@@ -45,7 +73,9 @@ export class CommandManager implements ICommandManager {
         }
     }
 
-    get getCommandMap(): Map<String, ITsubasaCommand> {
+    get getCommandMap()
+        :
+        Map<String, ITsubasaCommand> {
         return this._commandMap;
     }
 
