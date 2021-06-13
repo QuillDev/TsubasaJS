@@ -1,0 +1,12 @@
+# Editor Stuff
+.idea/
+
+
+# Node Stuff
+node_modules/
+
+# Environment Variables
+.env
+
+#Logging
+*.log
