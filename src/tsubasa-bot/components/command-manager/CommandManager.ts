@@ -1,13 +1,11 @@
 import {inject, injectable} from "inversify";
-import {TsubasaClient} from "../client/TsubasaClient";
-import {TYPES} from "../../../types/TsubasaTypes";
+import {TsubasaClient} from "../../client/TsubasaClient";
+import {TYPES} from "../../../../types/TsubasaTypes";
 import {ICommandManager} from "./ICommandManager";
 import {join} from "path";
 import * as fg from "fast-glob";
-import {ITsubasaCommand} from "../abstract/ITsubasaCommand";
+import {ITsubasaCommand} from "../../abstract/ITsubasaCommand";
 import {Message} from "discord.js";
-import assert = require("assert");
-import {container} from "../../containers/TsubasaIOC";
 
 @injectable()
 export class CommandManager implements ICommandManager {
@@ -73,9 +71,7 @@ export class CommandManager implements ICommandManager {
         }
     }
 
-    get getCommandMap()
-        :
-        Map<String, ITsubasaCommand> {
+    get getCommandMap(): Map<String, ITsubasaCommand> {
         return this._commandMap;
     }
 

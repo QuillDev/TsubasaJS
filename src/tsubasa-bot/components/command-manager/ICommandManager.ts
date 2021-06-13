@@ -1,4 +1,4 @@
-import {ITsubasaCommand} from "../abstract/ITsubasaCommand";
+import {ITsubasaCommand} from "../../abstract/ITsubasaCommand";
 
 export interface ICommandManager {
 
