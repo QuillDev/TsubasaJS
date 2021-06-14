@@ -4,21 +4,24 @@ import {TYPES} from "../../../../types/TsubasaTypes";
 import {ICommandManager} from "./ICommandManager";
 import {join} from "path";
 import * as fg from "fast-glob";
-import {ITsubasaCommand} from "../../abstract/ITsubasaCommand";
+import {IExecutableCommand} from "../../abstract/IExecutableCommand";
 import {Message} from "discord.js";
+import {ITsubasaEvent} from "../../abstract/ITsubasaEvent";
+import {ClientEvent} from "../event-manager/ClientEvent";
+import {TsubasaCommand} from "../../abstract/TsubasaCommand";
 
 @injectable()
 export class CommandManager implements ICommandManager {
 
     private _client: TsubasaClient; //get the tsubasa-bot client
-    private readonly _commandMap: Map<String, ITsubasaCommand>;
+    private readonly _commandMap: Map<String, IExecutableCommand>;
     private readonly prefix = process.env.PREFIX;
 
     constructor(
         @inject(TYPES.ITsubasaClient) client: TsubasaClient
     ) {
         this._client = client;
-        this._commandMap = new Map<String, ITsubasaCommand>();
+        this._commandMap = new Map<String, IExecutableCommand>();
 
         this._client.on('message', (msg) => this.listener(msg));
     }
@@ -62,8 +65,14 @@ export class CommandManager implements ICommandManager {
                 //Iterate through all the keys in the module
                 for (const key of Object.keys(module)) {
                     const entry = module[key]; //get the command
-                    const command: ITsubasaCommand = new entry(); //create an instance of the command
-                    if (entry == null || command.name == null) return;
+
+                    let command: IExecutableCommand;
+                    if (entry.prototype instanceof TsubasaCommand) {
+                        command = new entry(this._client);
+                    } else {
+                        command = new entry(); //create an instance of the command
+                    }
+                    if (command == null) return;
                     this._commandMap.set(command.name, command); //add the cmd to the map
                     console.info(`Added command ${command.name}`);
                 }
@@ -71,7 +80,7 @@ export class CommandManager implements ICommandManager {
         }
     }
 
-    get getCommandMap(): Map<String, ITsubasaCommand> {
+    get getCommandMap(): Map<String, IExecutableCommand> {
         return this._commandMap;
     }
 
