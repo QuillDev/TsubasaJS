@@ -24,7 +24,7 @@ export class MessageHandler {
             try {
                 //setup the args & command.
                 const args = msg.content.substring(process.env.PREFIX.length).split(" ");
-                const command = args.splice(0, 1).toString();
+                const command = args.splice(0, 1).toString().toLowerCase();
                 const cmd = this.commands.get(command);
 
                 //if there is no matching command, log that we couldn't find one!
